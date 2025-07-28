@@ -1,0 +1,175 @@
+---
+export interface Props {
+  placeholder?: string;
+  className?: string;
+}
+
+const { placeholder = 'Search articles...', className = '' } = Astro.props;
+---
+
+<div class={`relative ${className}`} data-search-box>
+  <input
+    type="search"
+    placeholder={placeholder}
+    class="w-full rounded-lg border bg-background px-4 py-3 pr-12 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+    data-search-input
+  />
+  <button
+    type="button"
+    class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-2 text-muted-foreground hover:text-foreground"
+    aria-label="Search"
+    data-search-btn
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+  </button>
+  <div
+    class="absolute left-0 right-0 top-full z-50 mt-2 hidden rounded-lg border bg-background shadow-lg"
+    data-search-results
+  >
+    <ul class="max-h-80 overflow-y-auto p-2" data-search-list></ul>
+  </div>
+</div>
+
+<script>
+  class SearchBox {
+    private container: HTMLElement;
+    private input: HTMLInputElement;
+    private results: HTMLElement;
+    private list: HTMLElement;
+    private searchBtn: HTMLButtonElement;
+
+    constructor(element: HTMLElement) {
+      this.container = element;
+      this.input = element.querySelector(
+        '[data-search-input]'
+      ) as HTMLInputElement;
+      this.results = element.querySelector(
+        '[data-search-results]'
+      ) as HTMLElement;
+      this.list = element.querySelector('[data-search-list]') as HTMLElement;
+      this.searchBtn = element.querySelector(
+        '[data-search-btn]'
+      ) as HTMLButtonElement;
+
+      this.init();
+    }
+
+    private init() {
+      this.input.addEventListener('input', this.handleInput.bind(this));
+      this.input.addEventListener('keydown', this.handleKeydown.bind(this));
+      this.searchBtn.addEventListener('click', this.handleSearch.bind(this));
+      document.addEventListener('click', this.handleClickOutside.bind(this));
+    }
+
+    private async handleInput(event: Event) {
+      const query = (event.target as HTMLInputElement).value.trim();
+
+      if (query.length < 2) {
+        this.hideResults();
+        return;
+      }
+
+      await this.search(query);
+    }
+
+    private async search(query: string) {
+      try {
+        const response = await fetch('/api/search.json');
+        const posts = await response.json();
+
+        const results = posts.filter(
+          (post: any) =>
+            post.title.toLowerCase().includes(query.toLowerCase()) ||
+            post.description.toLowerCase().includes(query.toLowerCase()) ||
+            post.tags.some((tag: string) =>
+              tag.toLowerCase().includes(query.toLowerCase())
+            ) ||
+            post.category.toLowerCase().includes(query.toLowerCase())
+        );
+
+        this.displayResults(results.slice(0, 5));
+      } catch (error) {
+        console.error('Search failed:', error);
+      }
+    }
+
+    private displayResults(results: any[]) {
+      if (results.length === 0) {
+        this.list.innerHTML =
+          '<li class="p-3 text-center text-muted-foreground">No results found</li>';
+      } else {
+        this.list.innerHTML = results
+          .map(
+            (post) => `
+          <li>
+            <a
+              href="${post.url}"
+              class="block rounded-md p-3 hover:bg-muted/50 transition-colors"
+            >
+              <h3 class="font-medium text-sm">${post.title}</h3>
+              <p class="text-xs text-muted-foreground mt-1">${post.description}</p>
+              <div class="flex gap-2 mt-2">
+                ${post.tags
+                  .slice(0, 2)
+                  .map(
+                    (tag: string) => `
+                  <span class="text-xs bg-muted px-2 py-1 rounded">${tag}</span>
+                `
+                  )
+                  .join('')}
+              </div>
+            </a>
+          </li>
+        `
+          )
+          .join('');
+      }
+
+      this.showResults();
+    }
+
+    private showResults() {
+      this.results.classList.remove('hidden');
+    }
+
+    private hideResults() {
+      this.results.classList.add('hidden');
+    }
+
+    private handleKeydown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.hideResults();
+      }
+    }
+
+    private handleSearch() {
+      const query = this.input.value.trim();
+      if (query) {
+        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+
+    private handleClickOutside(event: Event) {
+      if (!this.container.contains(event.target as Node)) {
+        this.hideResults();
+      }
+    }
+  }
+
+  document.querySelectorAll('[data-search-box]').forEach((element) => {
+    new SearchBox(element as HTMLElement);
+  });
+</script>

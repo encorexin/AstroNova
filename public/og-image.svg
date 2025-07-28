@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="ogBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ogAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+  
+  <!-- Logo -->
+  <g transform="translate(600, 200)">
+    <circle cx="0" cy="0" r="80" fill="url(#ogAccent)"/>
+    <text x="0" y="15" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif" font-weight="bold">A</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="350" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif" font-weight="bold">AstroNova</text>
+  <text x="600" y="400" text-anchor="middle" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">现代化博客，极致性能体验</text>
+  
+  <!-- Tagline -->
+  <text x="600" y="480" text-anchor="middle" fill="#64748b" font-size="20" font-family="Arial, sans-serif">使用 Astro + Tailwind CSS 构建的高性能博客</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="200" cy="500" r="40" fill="url(#ogAccent)" opacity="0.3"/>
+  <circle cx="1000" cy="500" r="60" fill="url(#ogAccent)" opacity="0.2"/>
+  <circle cx="150" cy="150" r="30" fill="url(#ogAccent)" opacity="0.4"/>
+  <circle cx="1050" cy="150" r="50" fill="url(#ogAccent)" opacity="0.3"/>
+</svg>

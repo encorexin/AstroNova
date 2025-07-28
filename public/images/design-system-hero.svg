@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="designBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="designAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#designBg)"/>
+  
+  <!-- Design system components -->
+  <g transform="translate(300, 200)">
+    <!-- Button components -->
+    <g>
+      <rect x="0" y="0" width="120" height="40" rx="8" fill="url(#designAccent)"/>
+      <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-family="Arial, sans-serif" font-weight="500">Primary</text>
+    </g>
+    
+    <g>
+      <rect x="140" y="0" width="120" height="40" rx="8" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+      <text x="200" y="25" text-anchor="middle" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif" font-weight="500">Secondary</text>
+    </g>
+    
+    <g>
+      <rect x="280" y="0" width="120" height="40" rx="8" fill="#334155"/>
+      <text x="340" y="25" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif" font-weight="500">Tertiary</text>
+    </g>
+  </g>
+  
+  <!-- Color palette -->
+  <g transform="translate(300, 280)">
+    <circle cx="30" cy="0" r="20" fill="#0ea5e9"/>
+    <circle cx="80" cy="0" r="20" fill="#8b5cf6"/>
+    <circle cx="130" cy="0" r="20" fill="#ec4899"/>
+    <circle cx="180" cy="0" r="20" fill="#f59e0b"/>
+    <circle cx="230" cy="0" r="20" fill="#22c55e"/>
+  </g>
+  
+  <!-- Typography scale -->
+  <g transform="translate(300, 350)">
+    <text x="0" y="0" fill="white" font-size="32" font-family="Arial, sans-serif" font-weight="bold">Aa</text>
+    <text x="50" y="0" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">Design System</text>
+    <text x="0" y="30" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">Consistent • Scalable • Beautiful</text>
+  </g>
+  
+  <!-- Grid system -->
+  <g transform="translate(600, 200)" opacity="0.3">
+    <rect x="580" y="180" width="40" height="240" fill="#334155"/>
+    <rect x="630" y="180" width="40" height="240" fill="#334155"/>
+    <rect x="680" y="180" width="40" height="240" fill="#334155"/>
+    <rect x="730" y="180" width="40" height="240" fill="#334155"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">设计系统</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">构建一致性的设计体验</text>
+</svg>

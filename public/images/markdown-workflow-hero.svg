@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="mdBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mdAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#mdBg)"/>
+  
+  <!-- Markdown document -->
+  <g transform="translate(300, 150)">
+    <rect x="0" y="0" width="600" height="300" fill="#0f172a" stroke="#334155" stroke-width="1" rx="8"/>
+    
+    <!-- Markdown content -->
+    <text x="20" y="30" fill="#ffffff" font-size="18" font-family="Arial, sans-serif" font-weight="bold"># 博客标题</text>
+    <text x="20" y="55" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">这是一段**粗体**和*斜体*的示例文本。</text>
+    <text x="20" y="80" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- 列表项 1</text>
+    <text x="20" y="100" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- 列表项 2</text>
+    <text x="20" y="120" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- 列表项 3</text>
+    <text x="20" y="150" fill="#fbbf24" font-size="14" font-family="monospace">```javascript</text>
+    <text x="20" y="170" fill="#fbbf24" font-size="14" font-family="monospace">const hello = "world";</text>
+    <text x="20" y="190" fill="#fbbf24" font-size="14" font-family="monospace">```</text>
+    <text x="20" y="220" fill="#ffffff" font-size="14" font-family="Arial, sans-serif">了解更多请访问[链接](https://example.com)</text>
+  </g>
+  
+  <!-- Markdown logo -->
+  <g transform="translate(600, 100)">
+    <circle cx="0" cy="0" r="50" fill="url(#mdAccent)"/>
+    <text x="0" y="15" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif">M</text>
+  </g>
+  
+  <!-- Workflow arrows -->
+  <g transform="translate(100, 300)">
+    <text x="0" y="0" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">📄 Markdown</text>
+    <text x="0" y="30" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">→ Astro构建</text>
+    <text x="0" y="60" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">→ 优化网页</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="500" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Markdown工作流</text>
+  <text x="600" y="530" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">从Markdown到现代网站的完美转换</text>
+</svg>

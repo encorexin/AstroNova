@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="darkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="darkAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#darkBg)"/>
+  
+  <!-- Dark mode toggle -->
+  <g transform="translate(600, 200)">
+    <circle cx="0" cy="0" r="80" fill="url(#darkAccent)" stroke="#475569" stroke-width="2"/>
+    <circle cx="-20" cy="-10" r="25" fill="#fbbf24"/>
+    <circle cx="20" cy="10" r="15" fill="#1e293b"/>
+    <circle cx="-10" cy="20" r="10" fill="#1e293b"/>
+  </g>
+  
+  <!-- Color swatches -->
+  <g transform="translate(300, 350)">
+    <rect x="0" y="0" width="40" height="40" fill="#000000" rx="4"/>
+    <rect x="50" y="0" width="40" height="40" fill="#0f172a" rx="4"/>
+    <rect x="100" y="0" width="40" height="40" fill="#1e293b" rx="4"/>
+    <rect x="150" y="0" width="40" height="40" fill="#334155" rx="4"/>
+    <rect x="200" y="0" width="40" height="40" fill="#475569" rx="4"/>
+  </g>
+  
+  <!-- Typography examples -->
+  <g transform="translate(600, 350)">
+    <text x="0" y="0" fill="#ffffff" font-size="24" font-family="Arial, sans-serif" font-weight="bold">Dark Mode</text>
+    <text x="0" y="30" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">优雅的深色主题</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">深色模式设计系统</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">为夜间使用优化的视觉体验</text>
+</svg>

@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.astro/
+
+# Content files - exclude from prettier to avoid conflicts with frontmatter
+src/content/blog/*.md
+
+# Specific Astro files with complex syntax
+src/components/Analytics.astro

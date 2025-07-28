@@ -1,0 +1,63 @@
+---
+export interface Props {
+  slug: string;
+  title: string;
+}
+
+const { slug: _slug, title: _title } = Astro.props;
+
+// Giscus configuration - you can customize these values
+// TODO: Replace with your actual GitHub repository details
+const _giscusConfig = {
+  repo: 'your-username/your-repo', // Replace with your GitHub username/repository
+  repoId: 'your-repo-id', // Get this from https://giscus.app/
+  category: 'General',
+  categoryId: 'your-category-id', // Get this from https://giscus.app/
+  mapping: 'pathname',
+  reactionsEnabled: '1',
+  emitMetadata: '0',
+  inputPosition: 'top',
+  theme: 'preferred_color_scheme',
+  lang: 'en',
+  loading: 'lazy',
+};
+---
+
+<div class="mt-12 border-t pt-12">
+  <h2 class="mb-6 text-2xl font-bold">Comments</h2>
+  <div id="giscus-container"></div>
+</div>
+
+<script define:vars={{ giscusConfig: _giscusConfig, slug: _slug, title: _title }} is:inline>
+  // Load Giscus script
+  function loadGiscus() {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', giscusConfig.repo);
+    script.setAttribute('data-repo-id', giscusConfig.repoId);
+    script.setAttribute('data-category', giscusConfig.category);
+    script.setAttribute('data-category-id', giscusConfig.categoryId);
+    script.setAttribute('data-mapping', giscusConfig.mapping);
+    script.setAttribute(
+      'data-reactions-enabled',
+      giscusConfig.reactionsEnabled
+    );
+    script.setAttribute('data-emit-metadata', giscusConfig.emitMetadata);
+    script.setAttribute('data-input-position', giscusConfig.inputPosition);
+    script.setAttribute('data-theme', giscusConfig.theme);
+    script.setAttribute('data-lang', giscusConfig.lang);
+    script.setAttribute('data-loading', giscusConfig.loading);
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    const container = document.getElementById('giscus-container');
+    if (container) {
+      container.appendChild(script);
+    }
+  }
+
+  // Check if Giscus is already loaded
+  if (!document.querySelector('script[src="https://giscus.app/client.js"]')) {
+    loadGiscus();
+  }
+</script>

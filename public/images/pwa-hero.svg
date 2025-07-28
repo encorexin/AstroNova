@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="pwaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pwaAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#pwaBg)"/>
+  
+  <!-- PWA features -->
+  <g transform="translate(400, 250)">
+    <!-- Install icon -->
+    <circle cx="0" cy="0" r="60" fill="url(#pwaAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="24" font-family="Arial, sans-serif">📱</text>
+    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">安装应用</text>
+  </g>
+  
+  <g transform="translate(600, 250)">
+    <!-- Offline icon -->
+    <circle cx="0" cy="0" r="60" fill="url(#pwaAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="24" font-family="Arial, sans-serif">📡</text>
+    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">离线访问</text>
+  </g>
+  
+  <g transform="translate(800, 250)">
+    <!-- Push icon -->
+    <circle cx="0" cy="0" r="60" fill="url(#pwaAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="24" font-family="Arial, sans-serif">🔔</text>
+    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">推送通知</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">渐进式Web应用</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">原生应用体验，无需安装</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="perfBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="perfAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#perfBg)"/>
+  
+  <!-- Performance metrics -->
+  <g transform="translate(600, 200)">
+    <!-- Speedometer -->
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#334155" stroke-width="10"/>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="url(#perfAccent)" stroke-width="10" stroke-dasharray="471 0" stroke-dashoffset="117"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">100</text>
+    <text x="0" y="30" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">Lighthouse</text>
+  </g>
+  
+  <!-- Performance indicators -->
+  <g transform="translate(300, 350)">
+    <text x="0" y="0" fill="#22c55e" font-size="16" font-family="Arial, sans-serif">⚡ FCP: 0.8s</text>
+    <text x="0" y="30" fill="#22c55e" font-size="16" font-family="Arial, sans-serif">🎯 LCP: 1.2s</text>
+    <text x="0" y="60" fill="#22c55e" font-size="16" font-family="Arial, sans-serif">🚀 TTI: 1.5s</text>
+  </g>
+  
+  <g transform="translate(700, 350)">
+    <text x="0" y="0" fill="#22c55e" font-size="16" font-family="Arial, sans-serif">📊 CLS: 0.02</text>
+    <text x="0" y="30" fill="#22c55e" font-size="16" font-family="Arial, sans-serif">🔍 FID: 12ms</text>
+    <text x="0" y="60" fill="#22c55e" font-size="16" font-family="Arial, sans-serif">🌐 TBT: 50ms</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">现代Web性能</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">极致优化，闪电般的加载速度</text>
+</svg>

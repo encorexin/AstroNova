@@ -1,0 +1,387 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/config/site';
+import { performanceTargets } from '@/config/performance';
+
+const performanceMetrics = [
+  {
+    name: 'Largest Contentful Paint (LCP)',
+    target: performanceTargets.lcp,
+    unit: 'ms',
+    description: '最大内容绘制时间',
+  },
+  {
+    name: 'First Input Delay (FID)',
+    target: performanceTargets.fid,
+    unit: 'ms',
+    description: '首次输入延迟',
+  },
+  {
+    name: 'Cumulative Layout Shift (CLS)',
+    target: performanceTargets.cls,
+    unit: '',
+    description: '累积布局偏移',
+  },
+  {
+    name: 'Time to Interactive (TTI)',
+    target: performanceTargets.tti,
+    unit: 'ms',
+    description: '可交互时间',
+  },
+];
+---
+
+<BaseLayout
+  title={`性能报告 - ${siteConfig.title}`}
+  description="网站性能监控和优化报告"
+>
+  <div class="container mx-auto px-4 py-16">
+    <div class="mx-auto max-w-4xl">
+      <header class="mb-12 text-center">
+        <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
+          性能监控报告
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">
+          实时监控网站性能指标，确保最佳用户体验
+        </p>
+      </header>
+
+      <!-- 性能指标卡片 -->
+      <div class="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {
+          performanceMetrics.map((metric) => (
+            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+              <h3 class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                {metric.name}
+              </h3>
+              <div class="flex items-baseline">
+                <span
+                  id={`${metric.name.toLowerCase().replace(/\s+/g, '-')}-value`}
+                  class="text-3xl font-bold text-gray-900 dark:text-white"
+                >
+                  测量中...
+                </span>
+                <span class="ml-1 text-sm text-gray-500 dark:text-gray-400">
+                  {metric.unit}
+                </span>
+              </div>
+              <div class="mt-2">
+                <span class="text-xs text-gray-500 dark:text-gray-400">
+                  目标: {metric.target}
+                  {metric.unit}
+                </span>
+              </div>
+              <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+                <div
+                  id={`${metric.name.toLowerCase().replace(/\s+/g, '-')}-bar`}
+                  class="h-full bg-blue-500 transition-all duration-300"
+                  style="width: 0%"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- 优化建议 -->
+      <div class="mb-8 rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+        <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+          优化建议
+        </h2>
+        <div id="optimization-suggestions" class="space-y-4">
+          <div class="animate-pulse">
+            <div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
+            <div class="mt-2 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 网络状态 -->
+      <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+        <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+          网络状态
+        </h2>
+        <div class="flex items-center space-x-4">
+          <div id="connection-status" class="flex items-center">
+            <div class="mr-2 h-3 w-3 rounded-full bg-green-500"></div>
+            <span class="text-green-600 dark:text-green-400">在线</span>
+          </div>
+          <div
+            id="connection-type"
+            class="text-sm text-gray-600 dark:text-gray-400"
+          >
+            正在检测...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  // 性能监控脚本，添加错误处理
+  function loadWebVitals() {
+    if (typeof window === 'undefined') return;
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
+    script.async = true;
+
+    script.onload = () => {
+      if (!window.webVitals) {
+        showErrorState();
+        return;
+      }
+
+      const { getCLS, getFID, getFCP, getLCP, getTTFB } = window.webVitals;
+
+      // 更新性能指标显示
+      function updateMetric(name, value, target, unit = '') {
+        const id = name.toLowerCase().replace(/\s+/g, '-');
+        const valueEl = document.getElementById(`${id}-value`);
+        const barEl = document.getElementById(`${id}-bar`);
+
+        if (valueEl) valueEl.textContent = value + unit;
+        if (barEl) {
+          const percentage = Math.min((value / target) * 100, 100);
+          barEl.style.width = `${percentage}%`;
+
+          // 根据性能调整颜色
+          if (value <= target) {
+            barEl.className = 'h-full bg-green-500 transition-all duration-300';
+          } else if (value <= target * 1.5) {
+            barEl.className =
+              'h-full bg-yellow-500 transition-all duration-300';
+          } else {
+            barEl.className = 'h-full bg-red-500 transition-all duration-300';
+          }
+        }
+      }
+
+      // 收集性能指标
+      const metrics = {};
+
+      function sendToAnalytics(metric) {
+        try {
+          metrics[metric.name] = metric.value;
+
+          switch (metric.name) {
+            case 'CLS':
+              updateMetric(
+                'Cumulative Layout Shift',
+                metric.value.toFixed(3),
+                0.1
+              );
+              break;
+            case 'FID':
+              updateMetric(
+                'First Input Delay',
+                Math.round(metric.value),
+                100,
+                'ms'
+              );
+              break;
+            case 'LCP':
+              updateMetric(
+                'Largest Contentful Paint',
+                Math.round(metric.value),
+                2500,
+                'ms'
+              );
+              break;
+            case 'TTFB':
+              updateMetric(
+                'Time to First Byte',
+                Math.round(metric.value),
+                600,
+                'ms'
+              );
+              break;
+          }
+
+          // 生成优化建议
+          generateSuggestions();
+        } catch (e) {
+          // 静默处理指标收集错误
+        }
+      }
+
+      // 生成优化建议
+      function generateSuggestions() {
+        try {
+          const suggestions = document.getElementById(
+            'optimization-suggestions'
+          );
+          const suggestionsList = [];
+
+          if (metrics.LCP && metrics.LCP > 2500) {
+            suggestionsList.push({
+              type: 'warning',
+              title: 'LCP 较慢',
+              description: '考虑优化图片大小和使用现代格式（AVIF, WebP）',
+            });
+          }
+
+          if (metrics.FID && metrics.FID > 100) {
+            suggestionsList.push({
+              type: 'warning',
+              title: 'FID 较高',
+              description: '减少JavaScript执行时间，使用代码分割',
+            });
+          }
+
+          if (metrics.CLS && metrics.CLS > 0.1) {
+            suggestionsList.push({
+              type: 'warning',
+              title: 'CLS 较高',
+              description: '为图片和广告预留空间，避免布局偏移',
+            });
+          }
+
+          if (suggestionsList.length === 0) {
+            suggestionsList.push({
+              type: 'success',
+              title: '性能优秀',
+              description: '所有指标都在良好范围内',
+            });
+          }
+
+          if (suggestions) {
+            suggestions.innerHTML = suggestionsList
+              .map(
+                (suggestion) => `
+              <div class="flex items-start space-x-3 p-4 rounded-lg ${
+                suggestion.type === 'success'
+                  ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
+                  : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200'
+              }">
+                <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                  <h3 class="font-medium">${suggestion.title}</h3>
+                  <p class="text-sm mt-1">${suggestion.description}</p>
+                </div>
+              </div>
+            `
+              )
+              .join('');
+          }
+        } catch (e) {
+          // 静默处理建议生成错误
+        }
+      }
+
+      try {
+        getCLS(sendToAnalytics);
+        getFID(sendToAnalytics);
+        getFCP(sendToAnalytics);
+        getLCP(sendToAnalytics);
+        getTTFB(sendToAnalytics);
+      } catch (e) {
+        showErrorState();
+      }
+    };
+
+    script.onerror = () => {
+      showErrorState();
+    };
+
+    document.head.appendChild(script);
+  }
+
+  function showErrorState() {
+    const metrics = [
+      'largest-contentful-paint-lcp',
+      'first-input-delay-fid',
+      'cumulative-layout-shift-cls',
+      'time-to-interactive-tti',
+    ];
+    metrics.forEach((id) => {
+      const valueEl = document.getElementById(`${id}-value`);
+      if (valueEl) valueEl.textContent = '不可用';
+    });
+
+    const suggestions = document.getElementById('optimization-suggestions');
+    if (suggestions) {
+      suggestions.innerHTML = `
+        <div class="flex items-start space-x-3 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200">
+          <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h3 class="font-medium">Performance monitoring disabled</h3>
+          <p class="text-sm mt-1">In development environment, some performance metrics may not be available. Please check in production for complete data.</p>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // 网络状态监控
+  function updateNetworkStatus() {
+    if (typeof window === 'undefined') return;
+
+    try {
+      const statusEl = document.getElementById('connection-status');
+      const typeEl = document.getElementById('connection-type');
+
+      if (!statusEl || !typeEl) return;
+
+      if (navigator.onLine) {
+        statusEl.innerHTML = `
+           <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+           <span class="text-green-600 dark:text-green-400">在线</span>
+         `;
+
+        const connection =
+          navigator.connection ||
+          navigator.mozConnection ||
+          navigator.webkitConnection;
+        if (connection) {
+          typeEl.textContent = `连接类型: ${connection.effectiveType || '未知'}`;
+        } else {
+          typeEl.textContent = '连接类型: 未知';
+        }
+      } else {
+        statusEl.innerHTML = `
+           <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+           <span class="text-red-600 dark:text-red-400">离线</span>
+         `;
+        typeEl.textContent = '请检查网络连接';
+      }
+    } catch (e) {
+      // 静默处理网络状态监控错误
+    }
+  }
+
+  // 延迟加载以避免阻塞
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        loadWebVitals();
+        updateNetworkStatus();
+      });
+    } else {
+      loadWebVitals();
+      updateNetworkStatus();
+    }
+
+    // 监控网络状态变化
+    try {
+      window.addEventListener('online', updateNetworkStatus);
+      window.addEventListener('offline', updateNetworkStatus);
+
+      const connection =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+      if (connection) {
+        connection.addEventListener('change', updateNetworkStatus);
+      }
+    } catch (e) {
+      // 静默处理事件监听器错误
+    }
+  }
+</script>

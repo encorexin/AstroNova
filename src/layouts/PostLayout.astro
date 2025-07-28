@@ -1,0 +1,141 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { formatDate } from '@/utils/date';
+import { Image } from 'astro:assets';
+import ReadingProgress from '../components/ReadingProgress';
+import Comments from '../components/Comments.astro';
+import SocialShare from '../components/SocialShare.astro';
+import { siteConfig } from '@/config/site';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const {
+  title,
+  description,
+  heroImage,
+  publishedAt,
+  updatedAt,
+  tags,
+  category,
+} = post.data;
+
+const readingTime = Math.ceil(post.body.split(' ').length / 200);
+---
+
+<BaseLayout
+  title={`${title} | ${siteConfig.title}`}
+  description={description}
+  image={heroImage}
+  type="article"
+  publishedTime={publishedAt.toISOString()}
+  modifiedTime={updatedAt ? updatedAt.toISOString() : undefined}
+  authors={[siteConfig.author.name]}
+  tags={tags}
+>
+  <ReadingProgress client:load />
+
+  <article class="container py-12">
+    <div class="mx-auto max-w-3xl">
+      <header class="mb-8">
+        <div class="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
+          <a
+            href={`/categories/${category.toLowerCase()}`}
+            class="transition-colors hover:text-foreground"
+          >
+            {category}
+          </a>
+          <span>•</span>
+          <time datetime={publishedAt.toISOString()}>
+            {formatDate(publishedAt)}
+          </time>
+          {
+            updatedAt && (
+              <>
+                <span>•</span>
+                <span>Updated {formatDate(updatedAt)}</span>
+              </>
+            )
+          }
+          <span>•</span>
+          <span>{readingTime} min read</span>
+        </div>
+
+        <h1 class="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+          {title}
+        </h1>
+
+        <p class="text-xl text-muted-foreground">
+          {description}
+        </p>
+
+        {
+          tags.length > 0 && (
+            <div class="mt-6 flex flex-wrap gap-2">
+              {tags.map((tag: string) => (
+                <a
+                  href={`/tags/${tag.toLowerCase()}`}
+                  class="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </header>
+
+      {
+        heroImage && (
+          <div class="relative mb-8 aspect-video overflow-hidden rounded-lg">
+            <Image
+              src={heroImage}
+              alt={title}
+              class="h-full w-full object-cover"
+              width={1200}
+              height={675}
+            />
+          </div>
+        )
+      }
+
+      <div class="prose-custom prose max-w-none dark:prose-invert">
+        <Content />
+      </div>
+
+      <footer class="mt-12 border-t pt-8">
+        <div class="flex items-center justify-between">
+          <a
+            href="/blog"
+            class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            ← Back to all posts
+          </a>
+
+          <div class="flex items-center space-x-4">
+            <button
+              class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              onclick="window.print()"
+            >
+              Print
+            </button>
+          </div>
+        </div>
+
+        <SocialShare
+          url={Astro.url.href}
+          title={title}
+          description={description}
+          tags={tags}
+        />
+      </footer>
+
+      <Comments slug={post.slug} title={title} />
+
+    </div>
+  </article>
+</BaseLayout>

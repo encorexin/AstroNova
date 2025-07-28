@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="pwaExpBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pwaExpAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#pwaExpBg)"/>
+  
+  <!-- PWA experience features -->
+  <g transform="translate(300, 250)">
+    <!-- App-like experience -->
+    <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">📱</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">原生体验</text>
+  </g>
+  
+  <g transform="translate(500, 250)">
+    <!-- Fast loading -->
+    <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">⚡</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">快速加载</text>
+  </g>
+  
+  <g transform="translate(700, 250)">
+    <!-- Offline support -->
+    <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">📡</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">离线支持</text>
+  </g>
+  
+  <g transform="translate(900, 250)">
+    <!-- Push notifications -->
+    <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
+    <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">🔔</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">推送通知</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">PWA体验升级</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">从网页到原生应用的完美蜕变</text>
+</svg>

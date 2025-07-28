@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#heroBg)"/>
+  
+  <!-- Hero elements -->
+  <g transform="translate(600, 200)">
+    <!-- Main icon -->
+    <circle cx="0" cy="0" r="100" fill="url(#heroAccent)"/>
+    <text x="0" y="20" text-anchor="middle" fill="white" font-size="72" font-family="Arial, sans-serif">🚀</text>
+  </g>
+  
+  <!-- Floating elements -->
+  <g opacity="0.6">
+    <circle cx="200" cy="150" r="20" fill="url(#heroAccent)"/>
+    <circle cx="1000" cy="200" r="15" fill="url(#heroAccent)"/>
+    <circle cx="150" cy="450" r="25" fill="url(#heroAccent)"/>
+    <circle cx="1050" cy="400" r="18" fill="url(#heroAccent)"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="350" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif" font-weight="bold">欢迎来到 AstroNova</text>
+  <text x="600" y="390" text-anchor="middle" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">现代Web开发的未来</text>
+</svg>

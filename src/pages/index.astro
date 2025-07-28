@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import HeroSection from '@/components/HeroSection.astro';
+import { getCollection } from 'astro:content';
+import { siteConfig } from '@/config/site';
+
+const posts = await getCollection('blog');
+const publishedPosts = posts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const featuredPosts = publishedPosts.slice(0, 3);
+const recentPosts = publishedPosts.slice(3, 6);
+---
+
+<BaseLayout
+  title={`${siteConfig.title} - ${siteConfig.description}`}
+>
+  <HeroSection />
+
+  <section class="container py-12">
+    <div class="space-y-8">
+      <div>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight">Featured Posts</h2>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {featuredPosts.map((post) => <BlogCard post={post} />)}
+        </div>
+      </div>
+
+      {
+        recentPosts.length > 0 && (
+          <div>
+            <h2 class="mb-6 text-3xl font-bold tracking-tight">Recent Posts</h2>
+            <div class="grid gap-6 md:grid-cols-2">
+              {recentPosts.map((post) => (
+                <BlogCard post={post} variant="compact" />
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <div class="text-center">
+        <a
+          href="/blog"
+          class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+        >
+          View All Posts
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

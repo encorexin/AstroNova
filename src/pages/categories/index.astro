@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const publishedPosts = posts.filter((post) => !post.data.draft);
+
+const categoryCounts = publishedPosts.reduce(
+  (acc, post) => {
+    const category = post.data.category;
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  },
+  {} as Record<string, number>
+);
+
+const categories = Object.entries(categoryCounts)
+  .sort(([, a], [, b]) => b - a)
+  .map(([name, count]) => ({ name, count, slug: name.toLowerCase() }));
+---
+
+<BaseLayout
+  title="Categories - Modern Astro Blog"
+  description="Browse posts by categories."
+>
+  <section class="container py-12">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Categories</h1>
+      <p class="mt-4 text-lg text-muted-foreground">
+        Explore posts organized by categories.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        categories.map((category) => (
+          <a
+            href={`/categories/${category.slug}`}
+            class="group relative overflow-hidden rounded-lg border bg-card p-6 text-card-foreground shadow-sm transition-all hover:shadow-lg"
+          >
+            <div class="space-y-2">
+              <h3 class="text-xl font-bold transition-colors group-hover:text-primary">
+                {category.name}
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                {category.count} {category.count === 1 ? 'post' : 'posts'}
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const publishedPosts = posts.filter((post) => !post.data.draft);
+
+  const allCategories = [
+    ...new Set(publishedPosts.map((post) => post.data.category)),
+  ];
+
+  return allCategories.map((category) => {
+    const filteredPosts = publishedPosts.filter(
+      (post) => post.data.category === category
+    );
+    return {
+      params: { category: category.toLowerCase() },
+      props: { posts: filteredPosts, category },
+    };
+  });
+}
+
+const { posts, category } = Astro.props;
+---
+
+<BaseLayout
+  title={`${category} - Modern Astro Blog`}
+  description={`Browse all posts in the ${category} category`}
+>
+  <section class="container py-12">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+        {category}
+      </h1>
+      <p class="mt-4 text-lg text-muted-foreground">
+        {posts.length}
+        {posts.length === 1 ? 'post' : 'posts'} found
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post: any) => <BlogCard post={post} />)}
+    </div>
+
+    {
+      posts.length === 0 && (
+        <div class="py-12 text-center">
+          <p class="text-muted-foreground">No posts found in this category.</p>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

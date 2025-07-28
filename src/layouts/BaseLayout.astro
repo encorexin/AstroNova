@@ -1,0 +1,79 @@
+---
+import '@/styles/globals.css';
+import { siteConfig } from '@/config/site';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ThemeScript from '@/components/ThemeScript.astro';
+import ImageLightbox from '@/components/ImageLightbox.astro';
+import SEO from '@/components/SEO.astro';
+import Analytics from '@/components/Analytics.astro';
+
+export interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: string | undefined;
+  canonical?: string | undefined;
+  type?: 'website' | 'article' | undefined;
+  publishedTime?: string | undefined;
+  modifiedTime?: string | undefined;
+  authors?: string[] | undefined;
+  tags?: string[] | undefined;
+  noindex?: boolean | undefined;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  image = '/og-image.svg',
+  canonical,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonicalURL.toString()}
+      type={type}
+      noindex={noindex}
+    />
+    <Analytics />
+    <ThemeScript />
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="min-h-screen bg-background font-sans antialiased">
+    <div class="relative flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+      <ImageLightbox selector=".prose img" />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/config/site';
+---
+
+<BaseLayout
+  title="About - Modern Astro Blog"
+  description="Learn more about this modern Astro blog and its creator."
+>
+  <section class="container py-12">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="mb-8 text-4xl font-bold tracking-tight sm:text-5xl">About</h1>
+
+      <div class="prose-custom prose max-w-none dark:prose-invert">
+        <p>
+          Welcome to {siteConfig.title}, a modern blog built with Astro and
+          Tailwind CSS. This blog is designed to provide a clean, fast, and
+          accessible reading experience for technical content and personal
+          insights.
+        </p>
+
+        <h2>About the Author</h2>
+        <p>
+          I'm {siteConfig.author.name}, a passionate developer who loves
+          creating beautiful and functional web experiences. This blog is where
+          I share my thoughts, tutorials, and insights about web development,
+          technology, and more.
+        </p>
+
+        <h2>Technologies Used</h2>
+        <ul>
+          <li>
+            <strong>Astro</strong> - Static site generator for optimal performance
+          </li>
+          <li><strong>Tailwind CSS</strong> - Utility-first CSS framework</li>
+          <li><strong>TypeScript</strong> - Type-safe JavaScript</li>
+          <li><strong>Framer Motion</strong> - Animation library for React</li>
+          <li><strong>MDX</strong> - Markdown with JSX components</li>
+        </ul>
+
+        <h2>Features</h2>
+        <ul>
+          <li>Dark/light theme toggle</li>
+          <li>Responsive design</li>
+          <li>SEO optimized</li>
+          <li>Fast loading times</li>
+          <li>Accessibility focused</li>
+          <li>Reading progress indicator</li>
+        </ul>
+
+        <h2>Get in Touch</h2>
+        <p>
+          I'd love to hear from you! Feel free to reach out through any of the
+          following channels:
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          {
+            siteConfig.social.github && (
+              <a
+                href={siteConfig.social.github}
+                class="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+            )
+          }
+
+          {
+            siteConfig.social.twitter && (
+              <a
+                href={siteConfig.social.twitter}
+                class="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Twitter
+              </a>
+            )
+          }
+
+          {
+            siteConfig.social.linkedin && (
+              <a
+                href={siteConfig.social.linkedin}
+                class="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

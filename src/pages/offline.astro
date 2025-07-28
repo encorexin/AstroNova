@@ -1,0 +1,143 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/config/site';
+---
+
+<BaseLayout
+  title={`Offline Mode - ${siteConfig.title}`}
+  description="You are currently in offline mode"
+>
+  <div class="container mx-auto px-4 py-16">
+    <div class="mx-auto max-w-2xl text-center">
+      <!-- 离线图标 -->
+      <div class="mb-8">
+        <svg
+          class="mx-auto h-24 w-24 text-gray-400 dark:text-gray-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+
+      <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
+        Offline Mode
+      </h1>
+
+      <p class="mb-8 text-xl text-gray-600 dark:text-gray-400">
+        You're currently offline, but don't worry! Our blog supports offline
+        reading.
+      </p>
+
+      <div class="mb-8 rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
+        <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+          What you can do:
+        </h2>
+        <ul class="space-y-2 text-left text-gray-600 dark:text-gray-400">
+          <li class="flex items-start">
+            <svg
+              class="mr-2 mt-0.5 h-5 w-5 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            Read cached articles
+          </li>
+          <li class="flex items-start">
+            <svg
+              class="mr-2 mt-0.5 h-5 w-5 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            Use search functionality (cached content)
+          </li>
+          <li class="flex items-start">
+            <svg
+              class="mr-2 mt-0.5 h-5 w-5 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            Switch themes and settings
+          </li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <button
+          id="refresh-btn"
+          class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          <svg
+            class="mr-2 h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.978 8.978 0 004.582 9m0 0A9.003 9.003 0 009.75 4.971M4.582 9H9.25a8.963 8.963 0 014.928 1.893A9.003 9.003 0 019.75 19.029M4.582 9h-.335a8.963 8.963 0 01-4.928-1.893A9.003 9.003 0 014.582 4.971"
+            ></path>
+          </svg>
+          Reconnect
+        </button>
+
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Page will automatically refresh when network is restored
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // 检测网络状态变化
+  const refreshBtn = document.getElementById('refresh-btn');
+
+  refreshBtn?.addEventListener('click', () => {
+    if (navigator.onLine) {
+      window.location.reload();
+    } else {
+      alert('Network is still unavailable, please check your connection');
+    }
+  });
+
+  // 监听网络状态变化
+  window.addEventListener('online', () => {
+    window.location.reload();
+  });
+
+  // 注册Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => {
+          console.log('SW registered: ', registration);
+        })
+        .catch((registrationError) => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    });
+  }
+</script>

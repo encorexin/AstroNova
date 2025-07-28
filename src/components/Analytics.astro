@@ -1,0 +1,154 @@
+---
+import { siteConfig } from '@/config/site';
+
+const _gaId = siteConfig.googleAnalytics || null;
+const _enableWebVitals = true;
+---
+
+{_gaId && _gaId !== 'G-XXXXXXXXXX' && _gaId !== null && (
+  <>
+    <!-- Google Analytics 4 -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${_gaId}`} is:inline></script>
+    <script define:vars={{ gaId: _gaId }} is:inline>
+      if (typeof window !== 'undefined' && gaId && gaId !== 'G-XXXXXXXXXX') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId, {
+          page_path: window.location.pathname,
+          custom_map: {
+            custom_parameter_1: 'theme',
+            custom_parameter_2: 'reading_time',
+          }
+        });
+      }
+
+      // Track theme switching
+      document.addEventListener('theme-changed', (e) => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'theme_change', {
+            theme: e.detail.theme
+          });
+        }
+      });
+
+      // Track code copying
+      document.addEventListener('copy', (e) => {
+        const selection = window.getSelection().toString();
+        if (selection.length > 10 && typeof gtag !== 'undefined') {
+          gtag('event', 'copy_code', {
+            length: selection.length
+          });
+        }
+      });
+    </script>
+  </>
+)}
+
+{_enableWebVitals && (
+  <>
+    <!-- Web Vitals Monitoring -->
+  <script is:inline>
+    // Dynamically load web-vitals with error handling
+    function loadWebVitals() {
+      if (typeof window === 'undefined') return;
+      
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
+      script.async = true;
+      
+      script.onload = () => {
+        if (!window.webVitals) return;
+        
+        const { getCLS, getFID, getFCP, getLCP, getTTFB } = window.webVitals;
+        
+        function sendToAnalytics(metric) {
+          try {
+            const body = JSON.stringify(metric);
+            
+            // Send to analytics service
+            if (typeof gtag !== 'undefined') {
+              gtag('event', metric.name, {
+                value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+                metric_id: metric.id,
+                metric_value: metric.value,
+                metric_delta: metric.delta,
+              });
+            }
+            
+            // Send to custom endpoint (fail silently)
+            if (navigator.sendBeacon && window.location.hostname !== 'localhost') {
+              try {
+                navigator.sendBeacon('/api/analytics', body);
+              } catch (e) {
+                // Silently handle sendBeacon errors
+              }
+            }
+          } catch (e) {
+            // Silently handle JSON serialization errors
+          }
+        }
+        
+        try {
+          getCLS(sendToAnalytics);
+          getFID(sendToAnalytics);
+          getFCP(sendToAnalytics);
+          getLCP(sendToAnalytics);
+          getTTFB(sendToAnalytics);
+        } catch (e) {
+            // Silently handle web-vitals API errors
+        }
+      };
+      
+      script.onerror = () => {
+        // Silently handle web-vitals loading failure
+      };
+      
+      document.head.appendChild(script);
+    }
+    
+    // Lazy load to avoid blocking
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadWebVitals);
+    } else {
+      loadWebVitals();
+    }
+  </script>
+  </>
+)}
+
+<!-- Performance marker -->
+<script is:inline>
+  // Performance measurement with error handling
+  if (typeof window !== 'undefined' && 'performance' in window) {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        try {
+          const navEntries = performance.getEntriesByType('navigation');
+          if (!navEntries || navEntries.length === 0) return;
+          
+          const perfData = navEntries[0];
+          
+          // Ensure all required properties exist
+          const loadTime = perfData.loadEventEnd && perfData.loadEventStart ? 
+            Math.round(perfData.loadEventEnd - perfData.loadEventStart) : 0;
+          const domContentLoaded = perfData.domContentLoadedEventEnd && perfData.domContentLoadedEventStart ?
+            Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) : 0;
+          const ttfb = perfData.responseStart && perfData.requestStart ?
+            Math.round(perfData.responseStart - perfData.requestStart) : 0;
+          
+          // Send to analytics
+          if (typeof gtag !== 'undefined' && (loadTime > 0 || domContentLoaded > 0 || ttfb > 0)) {
+            gtag('event', 'page_performance', {
+              load_time: loadTime,
+              dom_content_loaded: domContentLoaded,
+              ttfb: ttfb,
+            });
+          }
+        } catch (e) {
+          // Silently handle performance measurement errors
+        }
+      }, 100); // Increase delay to ensure data availability
+    });
+  }
+</script>

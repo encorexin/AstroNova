@@ -1,0 +1,149 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+  showFirstLast?: boolean;
+  showPrevNext?: boolean;
+  maxVisiblePages?: number;
+}
+
+const {
+  currentPage: _currentPage,
+  totalPages: _totalPages,
+  baseUrl: _baseUrl,
+  showFirstLast: _showFirstLast = true,
+  showPrevNext: _showPrevNext = true,
+  maxVisiblePages: _maxVisiblePages = 5,
+} = Astro.props;
+
+const _generatePageUrl = (page: number) => {
+  if (page === 1) {
+    return _baseUrl.endsWith('/') ? _baseUrl.slice(0, -1) : _baseUrl;
+  }
+  return `${_baseUrl}/page/${page}`;
+};
+
+const generatePageRange = () => {
+  const pages: (number | string)[] = [];
+  const half = Math.floor(_maxVisiblePages / 2);
+
+  let start = Math.max(1, _currentPage - half);
+  let end = Math.min(_totalPages, _currentPage + half);
+
+  if (_currentPage <= half) {
+    end = Math.min(_totalPages, _maxVisiblePages);
+  }
+
+  if (_currentPage + half >= _totalPages) {
+    start = Math.max(1, _totalPages - _maxVisiblePages + 1);
+  }
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  if (start > 2) {
+    pages.unshift('...');
+  }
+
+  if (end < _totalPages - 1) {
+    pages.push('...');
+  }
+
+  if (start > 1) {
+    pages.unshift(1);
+  }
+
+  if (end < _totalPages) {
+    pages.push(_totalPages);
+  }
+
+  return pages;
+};
+---
+
+{
+  _totalPages > 1 && (
+    <nav
+      class="flex items-center justify-center space-x-2"
+      aria-label="Pagination"
+    >
+      {_showPrevNext && _currentPage > 1 && (
+        <a
+          href={_generatePageUrl(_currentPage - 1)}
+          class="inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          aria-label="Previous page"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="mr-2 h-4 w-4"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          Previous
+        </a>
+      )}
+
+      {_showFirstLast &&
+        generatePageRange().map((page: number | string) => {
+          if (page === '...') {
+            return (
+              <span class="inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm font-medium text-muted-foreground">
+                ...
+              </span>
+            );
+          }
+
+          const isCurrent = page === _currentPage;
+
+          return (
+            <a
+              href={_generatePageUrl(page as number)}
+              class={`inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                isCurrent
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-input bg-background text-foreground'
+              }`}
+              aria-current={isCurrent ? 'page' : undefined}
+              aria-label={`Page ${page}`}
+            >
+              {page}
+            </a>
+          );
+        })}
+
+      {_showPrevNext && _currentPage < _totalPages && (
+        <a
+          href={_generatePageUrl(_currentPage + 1)}
+          class="inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          aria-label="Next page"
+        >
+          Next
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ml-2 h-4 w-4"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </a>
+      )}
+    </nav>
+  )
+}

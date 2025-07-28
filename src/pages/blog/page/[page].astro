@@ -1,0 +1,123 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import Pagination from '@/components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 6;
+  const posts = await getCollection('blog');
+  const publishedPosts = posts
+    .filter((post) => !post.data.draft)
+    .sort(
+      (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+    );
+
+  const totalPages = Math.ceil(publishedPosts.length / POSTS_PER_PAGE);
+
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: (i + 1).toString() },
+    props: { posts: publishedPosts },
+  }));
+}
+
+const POSTS_PER_PAGE = 6;
+const { posts: publishedPosts } = Astro.props;
+const { page } = Astro.params;
+
+const allTags = [...new Set(publishedPosts.flatMap((post) => post.data.tags))];
+const allCategories = [
+  ...new Set(publishedPosts.map((post) => post.data.category)),
+];
+
+const totalPages = Math.ceil(publishedPosts.length / POSTS_PER_PAGE);
+const currentPage = parseInt(page || '1', 10);
+
+if (currentPage < 1 || currentPage > totalPages) {
+  return Astro.redirect('/404');
+}
+
+const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+const endIndex = startIndex + POSTS_PER_PAGE;
+const paginatedPosts = publishedPosts.slice(startIndex, endIndex);
+
+const title = currentPage === 1 ? 'Blog' : `Blog - Page ${currentPage}`;
+---
+
+<BaseLayout
+  title={title}
+  description="Read our latest blog posts about web development, technology, and more."
+>
+  <section class="container py-12">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Blog</h1>
+      <p class="mt-4 text-lg text-muted-foreground">
+        Thoughts, tutorials, and insights about web development and technology.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      <div class="lg:col-span-2">
+        <div class="grid gap-6">
+          {paginatedPosts.map((post) => <BlogCard post={post} />)}
+        </div>
+
+        {
+          paginatedPosts.length === 0 && (
+            <div class="py-12 text-center">
+              <p class="text-muted-foreground">No posts found for this page.</p>
+            </div>
+          )
+        }
+
+        {
+          totalPages > 1 && (
+            <div class="mt-12">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                baseUrl="/blog"
+              />
+            </div>
+          )
+        }
+      </div>
+
+      <aside class="lg:col-span-1">
+        <div class="sticky top-24 space-y-6">
+          <div class="rounded-lg border bg-card p-6">
+            <h3 class="mb-4 font-semibold">Categories</h3>
+            <div class="space-y-2">
+              {
+                allCategories.map((category) => (
+                  <a
+                    href={`/categories/${String(category).toLowerCase()}`}
+                    class="block text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {category}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="rounded-lg border bg-card p-6">
+            <h3 class="mb-4 font-semibold">Popular Tags</h3>
+            <div class="flex flex-wrap gap-2">
+              {
+                allTags.map((tag) => (
+                  <a
+                    href={`/tags/${String(tag).toLowerCase()}`}
+                    class="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold text-secondary-foreground transition-colors hover:bg-secondary/80"
+                  >
+                    {tag}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
