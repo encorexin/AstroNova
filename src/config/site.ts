@@ -16,11 +16,11 @@ export const siteConfig: SiteConfig = {
   },
   navigation: [
     { name: 'Home', href: '/' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Tags', href: '/tags' },
-    { name: 'Categories', href: '/categories' },
-    { name: 'About', href: '/about' },
-    { name: 'Performance', href: '/performance' },
+    { name: 'Blog', href: '/blog/' },
+    { name: 'Tags', href: '/tags/' },
+    { name: 'Categories', href: '/categories/' },
+    { name: 'About', href: '/about/' },
+    { name: 'Performance', href: '/performance/' },
   ],
 
   // SEO configuration

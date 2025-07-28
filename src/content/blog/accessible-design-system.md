@@ -40,7 +40,7 @@ Our HTML provides clear document structure for screen readers:
 <header role="banner">
   <nav aria-label="Main navigation">
     <ul role="list">
-      <li><a href="/blog" aria-current="page">Blog</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
     </ul>
   </nav>
 </header>
