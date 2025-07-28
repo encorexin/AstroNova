@@ -50,6 +50,6 @@ export const siteConfig: SiteConfig = {
     mapping: 'pathname',
     reactionsEnabled: '1',
     emitMetadata: '0',
-    theme: 'preferred_color_scheme',
+    theme: 'light', // Default theme, will be dynamically updated based on current theme
   },
 };

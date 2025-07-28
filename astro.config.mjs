@@ -7,7 +7,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://astro-nova-five.vercel.app',
   base: '/',
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   build: {
     format: 'directory',
   },

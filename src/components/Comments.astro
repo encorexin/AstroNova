@@ -30,8 +30,29 @@ const _giscusConfig = {
 </div>
 
 <script define:vars={{ giscusConfig: _giscusConfig, slug: _slug, title: _title }} is:inline>
-  // Load Giscus script
-  function loadGiscus() {
+  // Get current theme based on HTML class or system preference
+  function getCurrentTheme() {
+    // Check localStorage first for explicit theme setting
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+    
+    // Check if dark mode is active via HTML class
+    if (document.documentElement.classList.contains('dark')) {
+      return 'dark';
+    }
+    
+    // Check system preference as fallback
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    
+    return 'light';
+  }
+
+  // Load Giscus script with specified theme
+  function loadGiscus(theme) {
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
     script.setAttribute('data-repo', giscusConfig.repo);
@@ -45,7 +66,7 @@ const _giscusConfig = {
     );
     script.setAttribute('data-emit-metadata', giscusConfig.emitMetadata);
     script.setAttribute('data-input-position', giscusConfig.inputPosition);
-    script.setAttribute('data-theme', giscusConfig.theme);
+    script.setAttribute('data-theme', theme);
     script.setAttribute('data-lang', giscusConfig.lang);
     script.setAttribute('data-loading', giscusConfig.loading);
     script.crossOrigin = 'anonymous';
@@ -57,8 +78,47 @@ const _giscusConfig = {
     }
   }
 
-  // Check if Giscus is already loaded
+  // Update giscus theme when system theme changes
+  function updateGiscusTheme() {
+    const iframe = document.querySelector('.giscus-frame');
+    if (iframe && iframe.contentWindow) {
+      const theme = getCurrentTheme();
+      iframe.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app');
+    }
+  }
+
+  // Listen for theme changes
+  function setupThemeObserver() {
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
+    
+    // Listen for manual theme toggle via localStorage and class changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateGiscusTheme();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    // Also listen for storage events (theme changes from other tabs)
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'theme') {
+        updateGiscusTheme();
+      }
+    });
+  }
+
+  // Initialize giscus and theme observer
   if (!document.querySelector('script[src="https://giscus.app/client.js"]')) {
-    loadGiscus();
+    // Ensure theme is determined before loading giscus
+    const currentTheme = getCurrentTheme();
+    loadGiscus(currentTheme);
+    setupThemeObserver();
   }
 </script>

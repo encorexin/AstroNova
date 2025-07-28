@@ -11,40 +11,36 @@
     "astro": "astro",
     "lint": "eslint . --ext .ts,.tsx,.astro",
     "format": "prettier --write .",
-    "type-check": "astro check && tsc --noEmit",
-    "format:biome": "biome format --write .",
-    "lint:biome": "biome lint .",
-    "check:biome": "biome check ."
+    "type-check": "astro check && tsc --noEmit"
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.6",
+    "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^4.3.1",
     "@astrojs/react": "^4.3.0",
-    "@astrojs/rss": "^4.0.5",
-    "@astrojs/sitemap": "^3.0.5",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/tailwind": "^5.1.5",
     "@tailwindcss/typography": "^0.5.16",
     "@vercel/analytics": "^1.5.0",
     "astro": "^5.12.3",
-    "astro-icon": "^1.1.0",
+    "astro-icon": "^1.1.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.1.2",
-    "@typescript-eslint/eslint-plugin": "^7.0.1",
-    "@typescript-eslint/parser": "^7.0.1",
-    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
     "eslint-plugin-astro": "^0.31.4",
     "framer-motion": "^12.23.9",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.13.0",
-    "prettier-plugin-tailwindcss": "^0.5.11"
+    "prettier-plugin-tailwindcss": "^0.5.14"
   },
   "lint-staged": {
     "*.{js,ts,tsx,astro}": [
