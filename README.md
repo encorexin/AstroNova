@@ -26,8 +26,7 @@ AstroNova is a production-ready blog template that prioritizes speed, accessibil
 ### Developer Experience
 - 🛠️ **TypeScript Ready** - Full TypeScript support with strict mode
 - 🎨 **Design System** - Comprehensive design tokens and component library
-- 🧪 **Testing Suite** - Unit tests and E2E tests configured
-- 🎯 **Performance Budgets** - Built-in performance monitoring and budgets
+- 🎯 **Performance Monitoring** - Built-in performance optimization
 - 📦 **PWA Ready** - Service worker, offline support, and app manifest
 
 ### User Experience
@@ -35,7 +34,6 @@ AstroNova is a production-ready blog template that prioritizes speed, accessibil
 - 🔖 **Reading Time** - Automatic reading time calculation
 - 🖼️ **Image Optimization** - Automatic responsive images with lazy loading
 - ♿ **WCAG 2.1 AA** - Fully accessible with keyboard navigation and screen reader support
-- 🌐 **i18n Ready** - Internationalization support with date formatting
 
 ## 🚀 Quick Start
 
@@ -342,8 +340,6 @@ GISCUS_REPO_ID=your-repo-id
 | `pnpm lint` | Run ESLint |
 | `pnpm format` | Format with Prettier |
 | `pnpm type-check` | TypeScript checking |
-| `pnpm test` | Run test suite |
-| `pnpm test:e2e` | Run E2E tests |
 
 ### Project Structure
 
@@ -394,17 +390,16 @@ We welcome contributions! Here's how to get started:
    git checkout -b feature/your-feature
    ```
 3. **Make your changes**
-4. **Run tests**
+4. **验证代码质量**
    ```bash
-   pnpm test
    pnpm lint
    pnpm type-check
+   pnpm format:biome
    ```
 5. **Submit a pull request**
 
 ### Contribution Guidelines
 - Follow the existing code style
-- Add tests for new features
 - Update documentation
 - Ensure accessibility standards
 - Include performance considerations
