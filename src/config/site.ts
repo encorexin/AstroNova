@@ -10,9 +10,9 @@ export const siteConfig: SiteConfig = {
     url: 'https://astro-nova-five.vercel.app/',
   },
   social: {
-    github: 'https://github.com/yourusername',
-    twitter: 'https://twitter.com/yourusername',
-    linkedin: 'https://linkedin.com/in/yourusername',
+    github: 'https://github.com/encorexin',
+    twitter: 'https://twitter.com/encorexin',
+    linkedin: 'https://linkedin.com/in/encorexin',
   },
   navigation: [
     { name: 'Home', href: '/' },
@@ -43,10 +43,10 @@ export const siteConfig: SiteConfig = {
 
   // Comments configuration
   giscus: {
-    repo: 'yourusername/yourblog',
-    repoId: 'your-repo-id',
+    repo: 'encorexin/AstroNova',
+    repoId: 'R_kgDOPT2eLQ',
     category: 'Blog Comments',
-    categoryId: 'your-category-id',
+    categoryId: 'DIC_kwDOPT2eLM4CehsU',
     mapping: 'pathname',
     reactionsEnabled: '1',
     emitMetadata: '0',

@@ -1,4 +1,6 @@
 ---
+import { siteConfig } from '@/config/site';
+
 export interface Props {
   slug: string;
   title: string;
@@ -6,18 +8,17 @@ export interface Props {
 
 const { slug: _slug, title: _title } = Astro.props;
 
-// Giscus configuration - you can customize these values
-// TODO: Replace with your actual GitHub repository details
+// Use giscus configuration from site config
 const _giscusConfig = {
-  repo: 'your-username/your-repo', // Replace with your GitHub username/repository
-  repoId: 'your-repo-id', // Get this from https://giscus.app/
-  category: 'General',
-  categoryId: 'your-category-id', // Get this from https://giscus.app/
-  mapping: 'pathname',
-  reactionsEnabled: '1',
-  emitMetadata: '0',
+  repo: siteConfig.giscus.repo,
+  repoId: siteConfig.giscus.repoId,
+  category: siteConfig.giscus.category,
+  categoryId: siteConfig.giscus.categoryId,
+  mapping: siteConfig.giscus.mapping,
+  reactionsEnabled: siteConfig.giscus.reactionsEnabled,
+  emitMetadata: siteConfig.giscus.emitMetadata,
   inputPosition: 'top',
-  theme: 'preferred_color_scheme',
+  theme: siteConfig.giscus.theme,
   lang: 'en',
   loading: 'lazy',
 };

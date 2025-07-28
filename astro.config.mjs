@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://yourblog.com',
+  site: 'https://astro-nova-five.vercel.app',
   base: '/',
   trailingSlash: 'always',
   build: {
