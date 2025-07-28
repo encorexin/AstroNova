@@ -5,6 +5,7 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import ThemeScript from '@/components/ThemeScript.astro';
 import ImageLightbox from '@/components/ImageLightbox.astro';
+import ScrollToTop from '@/components/ScrollToTop.astro';
 import SEO from '@/components/SEO.astro';
 import Analytics from '@vercel/analytics/astro';
 
@@ -73,7 +74,8 @@ const canonicalURL = canonical
         <slot />
       </main>
       <Footer />
-      <ImageLightbox selector=".prose img" />
-    </div>
-  </body>
+    <ImageLightbox selector=".prose img" />
+    <ScrollToTop />
+  </div>
+</body>
 </html>
