@@ -14,6 +14,15 @@ draft: z.boolean().default(false),
 }),
 });
 
+const pages = defineCollection({
+type: 'content',
+schema: z.object({
+title: z.string(),
+description: z.string(),
+}),
+});
+
 export const collections = {
 blog,
+pages,
 };
