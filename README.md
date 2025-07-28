@@ -47,7 +47,7 @@ AstroNova is a production-ready blog template that prioritizes speed, accessibil
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/astronova.git
+   git clone https://github.com/encorexin/astronova.git
    cd astronova
    ```
 
