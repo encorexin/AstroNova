@@ -8,45 +8,45 @@ const performanceMetrics = [
     name: 'Largest Contentful Paint (LCP)',
     target: performanceTargets.lcp,
     unit: 'ms',
-    description: '最大内容绘制时间',
+    description: 'Largest Contentful Paint',
   },
   {
     name: 'First Input Delay (FID)',
     target: performanceTargets.fid,
     unit: 'ms',
-    description: '首次输入延迟',
+    description: 'First Input Delay',
   },
   {
     name: 'Cumulative Layout Shift (CLS)',
     target: performanceTargets.cls,
     unit: '',
-    description: '累积布局偏移',
+    description: 'Cumulative Layout Shift',
   },
   {
     name: 'Time to Interactive (TTI)',
     target: performanceTargets.tti,
     unit: 'ms',
-    description: '可交互时间',
+    description: 'Time to Interactive',
   },
 ];
 ---
 
 <BaseLayout
-  title={`性能报告 - ${siteConfig.title}`}
-  description="网站性能监控和优化报告"
+  title={`Performance Report - ${siteConfig.title}`}
+  description="Website performance monitoring and optimization report"
 >
   <div class="container mx-auto px-4 py-16">
     <div class="mx-auto max-w-4xl">
       <header class="mb-12 text-center">
         <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
-          性能监控报告
+          Performance Monitoring Report
         </h1>
         <p class="text-xl text-gray-600 dark:text-gray-400">
-          实时监控网站性能指标，确保最佳用户体验
+          Real-time monitoring of website performance metrics to ensure optimal user experience
         </p>
       </header>
 
-      <!-- 性能指标卡片 -->
+      <!-- Performance metrics cards -->
       <div class="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {
           performanceMetrics.map((metric) => (
@@ -59,7 +59,7 @@ const performanceMetrics = [
                   id={`${metric.name.toLowerCase().replace(/\s+/g, '-')}-value`}
                   class="text-3xl font-bold text-gray-900 dark:text-white"
                 >
-                  测量中...
+                  Measuring...
                 </span>
                 <span class="ml-1 text-sm text-gray-500 dark:text-gray-400">
                   {metric.unit}
@@ -67,7 +67,7 @@ const performanceMetrics = [
               </div>
               <div class="mt-2">
                 <span class="text-xs text-gray-500 dark:text-gray-400">
-                  目标: {metric.target}
+                  Target: {metric.target}
                   {metric.unit}
                 </span>
               </div>
@@ -83,10 +83,10 @@ const performanceMetrics = [
         }
       </div>
 
-      <!-- 优化建议 -->
+      <!-- Optimization suggestions -->
       <div class="mb-8 rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
         <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-          优化建议
+          Optimization Suggestions
         </h2>
         <div id="optimization-suggestions" class="space-y-4">
           <div class="animate-pulse">
@@ -97,21 +97,21 @@ const performanceMetrics = [
         </div>
       </div>
 
-      <!-- 网络状态 -->
+      <!-- Network status -->
       <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
         <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-          网络状态
+          Network Status
         </h2>
         <div class="flex items-center space-x-4">
           <div id="connection-status" class="flex items-center">
             <div class="mr-2 h-3 w-3 rounded-full bg-green-500"></div>
-            <span class="text-green-600 dark:text-green-400">在线</span>
+            <span class="text-green-600 dark:text-green-400">Online</span>
           </div>
           <div
             id="connection-type"
             class="text-sm text-gray-600 dark:text-gray-400"
           >
-            正在检测...
+            Detecting...
           </div>
         </div>
       </div>
@@ -120,7 +120,7 @@ const performanceMetrics = [
 </BaseLayout>
 
 <script is:inline>
-  // 性能监控脚本，添加错误处理
+  // Performance monitoring script with error handling
   function loadWebVitals() {
     if (typeof window === 'undefined') return;
 
@@ -136,7 +136,7 @@ const performanceMetrics = [
 
       const { getCLS, getFID, getFCP, getLCP, getTTFB } = window.webVitals;
 
-      // 更新性能指标显示
+      // Update performance metrics display
       function updateMetric(name, value, target, unit = '') {
         const id = name.toLowerCase().replace(/\s+/g, '-');
         const valueEl = document.getElementById(`${id}-value`);
@@ -147,7 +147,7 @@ const performanceMetrics = [
           const percentage = Math.min((value / target) * 100, 100);
           barEl.style.width = `${percentage}%`;
 
-          // 根据性能调整颜色
+          // Adjust colors based on performance
           if (value <= target) {
             barEl.className = 'h-full bg-green-500 transition-all duration-300';
           } else if (value <= target * 1.5) {
@@ -159,7 +159,7 @@ const performanceMetrics = [
         }
       }
 
-      // 收集性能指标
+      // Collect performance metrics
       const metrics = {};
 
       function sendToAnalytics(metric) {
@@ -200,14 +200,14 @@ const performanceMetrics = [
               break;
           }
 
-          // 生成优化建议
+          // Generate optimization suggestions
           generateSuggestions();
         } catch (e) {
-          // 静默处理指标收集错误
+          // Silently handle metric collection errors
         }
       }
 
-      // 生成优化建议
+      // Generate optimization suggestions
       function generateSuggestions() {
         try {
           const suggestions = document.getElementById(
@@ -218,32 +218,32 @@ const performanceMetrics = [
           if (metrics.LCP && metrics.LCP > 2500) {
             suggestionsList.push({
               type: 'warning',
-              title: 'LCP 较慢',
-              description: '考虑优化图片大小和使用现代格式（AVIF, WebP）',
+              title: 'Slow LCP',
+              description: 'Consider optimizing image sizes and using modern formats (AVIF, WebP)',
             });
           }
 
           if (metrics.FID && metrics.FID > 100) {
             suggestionsList.push({
               type: 'warning',
-              title: 'FID 较高',
-              description: '减少JavaScript执行时间，使用代码分割',
+              title: 'High FID',
+              description: 'Reduce JavaScript execution time, use code splitting',
             });
           }
 
           if (metrics.CLS && metrics.CLS > 0.1) {
             suggestionsList.push({
               type: 'warning',
-              title: 'CLS 较高',
-              description: '为图片和广告预留空间，避免布局偏移',
+              title: 'High CLS',
+              description: 'Reserve space for images and ads to avoid layout shifts',
             });
           }
 
           if (suggestionsList.length === 0) {
             suggestionsList.push({
               type: 'success',
-              title: '性能优秀',
-              description: '所有指标都在良好范围内',
+              title: 'Excellent Performance',
+              description: 'All metrics are within good ranges',
             });
           }
 
@@ -269,7 +269,7 @@ const performanceMetrics = [
               .join('');
           }
         } catch (e) {
-          // 静默处理建议生成错误
+          // Silently handle suggestion generation errors
         }
       }
 
@@ -300,7 +300,7 @@ const performanceMetrics = [
     ];
     metrics.forEach((id) => {
       const valueEl = document.getElementById(`${id}-value`);
-      if (valueEl) valueEl.textContent = '不可用';
+      if (valueEl) valueEl.textContent = 'Unavailable';
     });
 
     const suggestions = document.getElementById('optimization-suggestions');
@@ -319,7 +319,7 @@ const performanceMetrics = [
     }
   }
 
-  // 网络状态监控
+  // Network status monitoring
   function updateNetworkStatus() {
     if (typeof window === 'undefined') return;
 
@@ -332,7 +332,7 @@ const performanceMetrics = [
       if (navigator.onLine) {
         statusEl.innerHTML = `
            <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-           <span class="text-green-600 dark:text-green-400">在线</span>
+           <span class="text-green-600 dark:text-green-400">Online</span>
          `;
 
         const connection =
@@ -340,23 +340,23 @@ const performanceMetrics = [
           navigator.mozConnection ||
           navigator.webkitConnection;
         if (connection) {
-          typeEl.textContent = `连接类型: ${connection.effectiveType || '未知'}`;
+          typeEl.textContent = `Connection type: ${connection.effectiveType || 'Unknown'}`;
         } else {
-          typeEl.textContent = '连接类型: 未知';
+          typeEl.textContent = 'Connection type: Unknown';
         }
       } else {
         statusEl.innerHTML = `
            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-           <span class="text-red-600 dark:text-red-400">离线</span>
+           <span class="text-red-600 dark:text-red-400">Offline</span>
          `;
-        typeEl.textContent = '请检查网络连接';
+        typeEl.textContent = 'Please check network connection';
       }
     } catch (e) {
-      // 静默处理网络状态监控错误
+      // Silently handle network monitoring errors
     }
   }
 
-  // 延迟加载以避免阻塞
+  // Lazy load to avoid blocking
   if (typeof window !== 'undefined') {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
@@ -368,7 +368,7 @@ const performanceMetrics = [
       updateNetworkStatus();
     }
 
-    // 监控网络状态变化
+    // Monitor network status changes
     try {
       window.addEventListener('online', updateNetworkStatus);
       window.addEventListener('offline', updateNetworkStatus);
@@ -381,7 +381,7 @@ const performanceMetrics = [
         connection.addEventListener('change', updateNetworkStatus);
       }
     } catch (e) {
-      // 静默处理事件监听器错误
+      // Silently handle event listener errors
     }
   }
 </script>

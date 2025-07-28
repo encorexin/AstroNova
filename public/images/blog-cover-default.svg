@@ -21,6 +21,6 @@
   </g>
   
   <!-- Title -->
-  <text x="600" y="400" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">博客文章</text>
-  <text x="600" y="440" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">技术分享与见解</text>
+  <text x="600" y="400" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Blog Post</text>
+  <text x="600" y="440" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">Technical Sharing and Insights</text>
 </svg>

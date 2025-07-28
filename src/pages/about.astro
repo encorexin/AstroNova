@@ -3,11 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { siteConfig } from '@/config/site';
 import { getEntry } from 'astro:content';
 
-// 使用Astro Content Collections获取about页面内容
+// Use Astro Content Collections to get about page content
 const aboutEntry = await getEntry('pages', 'about');
 
 if (!aboutEntry) {
-  throw new Error('找不到about.md文件，请确保文件存在于src/content/pages/about.md');
+  throw new Error('Cannot find about.md file, please ensure it exists in src/content/pages/about.md');
 }
 
 const { data, render } = aboutEntry;
@@ -23,11 +23,11 @@ const { Content } = await render();
       <div class="prose-custom prose max-w-none dark:prose-invert">
         <Content />
         
-        <!-- 社交链接部分 -->
+        <!-- Social links section -->
         <div class="mt-12 border-t pt-8">
-          <h2 class="text-2xl font-bold mb-4">联系我们</h2>
+          <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
           <p class="mb-4">
-            我们很乐意听到您的声音！通过以下渠道联系我们：
+            We'd love to hear from you! Contact us through these channels:
           </p>
           
           <div class="flex flex-wrap gap-4">

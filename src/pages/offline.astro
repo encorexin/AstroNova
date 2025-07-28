@@ -9,7 +9,7 @@ import { siteConfig } from '@/config/site';
 >
   <div class="container mx-auto px-4 py-16">
     <div class="mx-auto max-w-2xl text-center">
-      <!-- 离线图标 -->
+      <!-- Offline icon -->
       <div class="mb-8">
         <svg
           class="mx-auto h-24 w-24 text-gray-400 dark:text-gray-500"
@@ -111,7 +111,7 @@ import { siteConfig } from '@/config/site';
 </BaseLayout>
 
 <script>
-  // 检测网络状态变化
+  // Detect network status changes
   const refreshBtn = document.getElementById('refresh-btn');
 
   refreshBtn?.addEventListener('click', () => {
@@ -122,12 +122,12 @@ import { siteConfig } from '@/config/site';
     }
   });
 
-  // 监听网络状态变化
+  // Listen for network status changes
   window.addEventListener('online', () => {
     window.location.reload();
   });
 
-  // 注册Service Worker
+  // Register Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker

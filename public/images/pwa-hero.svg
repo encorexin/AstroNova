@@ -19,24 +19,24 @@
     <!-- Install icon -->
     <circle cx="0" cy="0" r="60" fill="url(#pwaAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="24" font-family="Arial, sans-serif">📱</text>
-    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">安装应用</text>
+    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">Install App</text>
   </g>
   
   <g transform="translate(600, 250)">
     <!-- Offline icon -->
     <circle cx="0" cy="0" r="60" fill="url(#pwaAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="24" font-family="Arial, sans-serif">📡</text>
-    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">离线访问</text>
+    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">Offline Access</text>
   </g>
   
   <g transform="translate(800, 250)">
     <!-- Push icon -->
     <circle cx="0" cy="0" r="60" fill="url(#pwaAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="24" font-family="Arial, sans-serif">🔔</text>
-    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">推送通知</text>
+    <text x="0" y="100" text-anchor="middle" fill="white" font-size="18" font-family="Arial, sans-serif">Push Notifications</text>
   </g>
   
   <!-- Title -->
-  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">渐进式Web应用</text>
-  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">原生应用体验，无需安装</text>
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Progressive Web App</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">Native app experience without installation</text>
 </svg>

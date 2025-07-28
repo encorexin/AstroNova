@@ -34,10 +34,10 @@
   <!-- Typography examples -->
   <g transform="translate(600, 350)">
     <text x="0" y="0" fill="#ffffff" font-size="24" font-family="Arial, sans-serif" font-weight="bold">Dark Mode</text>
-    <text x="0" y="30" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">优雅的深色主题</text>
+    <text x="0" y="30" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">Elegant Dark Theme</text>
   </g>
   
   <!-- Title -->
-  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">深色模式设计系统</text>
-  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">为夜间使用优化的视觉体验</text>
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Dark Mode Design System</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">Visual experience optimized for nighttime use</text>
 </svg>

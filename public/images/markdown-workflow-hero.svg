@@ -19,15 +19,15 @@
     <rect x="0" y="0" width="600" height="300" fill="#0f172a" stroke="#334155" stroke-width="1" rx="8"/>
     
     <!-- Markdown content -->
-    <text x="20" y="30" fill="#ffffff" font-size="18" font-family="Arial, sans-serif" font-weight="bold"># 博客标题</text>
-    <text x="20" y="55" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">这是一段**粗体**和*斜体*的示例文本。</text>
-    <text x="20" y="80" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- 列表项 1</text>
-    <text x="20" y="100" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- 列表项 2</text>
-    <text x="20" y="120" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- 列表项 3</text>
+    <text x="20" y="30" fill="#ffffff" font-size="18" font-family="Arial, sans-serif" font-weight="bold"># Blog Title</text>
+    <text x="20" y="55" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">This is an example of **bold** and *italic* text.</text>
+    <text x="20" y="80" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- List item 1</text>
+    <text x="20" y="100" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- List item 2</text>
+    <text x="20" y="120" fill="#8b5cf6" font-size="14" font-family="Arial, sans-serif">- List item 3</text>
     <text x="20" y="150" fill="#fbbf24" font-size="14" font-family="monospace">```javascript</text>
     <text x="20" y="170" fill="#fbbf24" font-size="14" font-family="monospace">const hello = "world";</text>
     <text x="20" y="190" fill="#fbbf24" font-size="14" font-family="monospace">```</text>
-    <text x="20" y="220" fill="#ffffff" font-size="14" font-family="Arial, sans-serif">了解更多请访问[链接](https://example.com)</text>
+    <text x="20" y="220" fill="#ffffff" font-size="14" font-family="Arial, sans-serif">Learn more at [link](https://example.com)</text>
   </g>
   
   <!-- Markdown logo -->
@@ -39,11 +39,11 @@
   <!-- Workflow arrows -->
   <g transform="translate(100, 300)">
     <text x="0" y="0" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">📄 Markdown</text>
-    <text x="0" y="30" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">→ Astro构建</text>
-    <text x="0" y="60" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">→ 优化网页</text>
+    <text x="0" y="30" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">→ Astro Build</text>
+    <text x="0" y="60" fill="#8b5cf6" font-size="16" font-family="Arial, sans-serif">→ Optimize Web</text>
   </g>
   
   <!-- Title -->
-  <text x="600" y="500" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Markdown工作流</text>
-  <text x="600" y="530" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">从Markdown到现代网站的完美转换</text>
+  <text x="600" y="500" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Markdown Workflow</text>
+  <text x="600" y="530" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">Perfect transformation from Markdown to modern website</text>
 </svg>

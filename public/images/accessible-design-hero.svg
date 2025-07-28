@@ -19,32 +19,32 @@
     <!-- Screen reader -->
     <circle cx="0" cy="0" r="50" fill="url(#a11yAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif">👁️</text>
-    <text x="0" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">屏幕阅读器</text>
+    <text x="0" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">Screen Reader</text>
     
     <!-- Keyboard navigation -->
     <circle cx="150" cy="0" r="50" fill="url(#a11yAccent)"/>
     <text x="150" y="10" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif">⌨️</text>
-    <text x="150" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">键盘导航</text>
+    <text x="150" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">Keyboard Nav</text>
     
     <!-- Color contrast -->
     <circle cx="300" cy="0" r="50" fill="url(#a11yAccent)"/>
     <text x="300" y="10" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif">🎨</text>
-    <text x="300" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">色彩对比</text>
+    <text x="300" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">Color Contrast</text>
     
     <!-- Semantic HTML -->
     <circle cx="450" cy="0" r="50" fill="url(#a11yAccent)"/>
     <text x="450" y="10" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif">🏗️</text>
-    <text x="450" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">语义化</text>
+    <text x="450" y="80" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Arial, sans-serif">Semantic</text>
   </g>
   
   <!-- WCAG guidelines -->
   <g transform="translate(400, 350)">
     <text x="400" y="350" fill="#06b6d4" font-size="18" font-family="Arial, sans-serif" font-weight="bold">WCAG 2.1</text>
-    <text x="400" y="380" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">可访问性指南</text>
-    <text x="400" y="410" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">AA级标准</text>
+    <text x="400" y="380" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">Accessibility Guide</text>
+    <text x="400" y="410" fill="#94a3b8" font-size="16" font-family="Arial, sans-serif">AA Standard</text>
   </g>
   
   <!-- Title -->
-  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">可访问性设计</text>
-  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">为所有人设计的包容性体验</text>
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">Accessible Design</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">Inclusive experience designed for everyone</text>
 </svg>

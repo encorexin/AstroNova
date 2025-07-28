@@ -390,7 +390,7 @@ We welcome contributions! Here's how to get started:
    git checkout -b feature/your-feature
    ```
 3. **Make your changes**
-4. **验证代码质量**
+4. **Verify code quality**
    ```bash
    pnpm lint
    pnpm type-check

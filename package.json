@@ -2,7 +2,7 @@
   "name": "astronova",
   "type": "module",
   "version": "1.0.0",
-  "description": "AstroNova - 现代化的 Astro 博客主题，具有优雅设计和流畅动画效果",
+  "description": "AstroNova - Modern Astro blog theme with elegant design and smooth animations",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

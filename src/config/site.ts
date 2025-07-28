@@ -2,12 +2,12 @@ import type { SiteConfig } from '@/types/blog';
 
 export const siteConfig: SiteConfig = {
   title: 'AstroNova',
-  description: '现代化的博客，使用 Astro 和 Tailwind CSS 构建',
-  url: 'https://yourblog.com',
+  description: 'Modern blog built with Astro and Tailwind CSS',
+  url: 'https://astro-nova-five.vercel.app/',
   author: {
-    name: 'Your Name',
-    email: 'your.email@example.com',
-    url: 'https://yourblog.com',
+    name: 'AstroNova',
+    email: 'astro-nova@example.com',
+    url: 'https://astro-nova-five.vercel.app/',
   },
   social: {
     github: 'https://github.com/yourusername',
@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
   },
 
   // Analytics configuration - set to null or your GA4 ID to enable
-  googleAnalytics: null, // 例如: 'G-XXXXXXXXXX',
+  googleAnalytics: null, // e.g: 'G-XXXXXXXXXX',
 
   // PWA configuration
   pwa: {

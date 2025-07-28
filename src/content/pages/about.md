@@ -1,73 +1,73 @@
 ---
-title: "关于我们"
-description: "了解这个现代化Astro博客的更多信息"
+title: "About Us"
+description: "Learn more about this modern Astro blog"
 ---
 
-欢迎来到我们的技术博客，这是一个使用Astro和Tailwind CSS构建的现代化博客平台。我们致力于为读者提供干净、快速且易于访问的技术内容和个人见解。
+Welcome to our tech blog, a modern platform built with Astro and Tailwind CSS. We are committed to providing readers with clean, fast, and accessible technical content and personal insights.
 
-## 关于作者
+## About Us
 
-我是**AstroNova**的创建者，一名热衷于创建美观且功能强大的网页体验的开发者。在这个博客中，我分享关于Web开发、技术和更多领域的思考、教程和见解。
+I am the creator of **AstroNova**, a developer passionate about creating beautiful and powerful web experiences. In this blog, I share thoughts, tutorials, and insights about web development, technology, and more.
 
-## 使用的技术栈
+## Technology Stack
 
-- **Astro** - 静态站点生成器，提供最佳性能
-- **Tailwind CSS** - 实用优先的CSS框架
-- **TypeScript** - 类型安全的JavaScript
-- **MDX** - 支持JSX组件的Markdown
-- **Framer Motion** - React动画库
+- **Astro** - Static site generator for optimal performance
+- **Tailwind CSS** - Utility-first CSS framework
+- **TypeScript** - Type-safe JavaScript
+- **MDX** - Markdown with JSX component support
+- **Framer Motion** - React animation library
 
-## 核心功能
+## Core Features
 
-- 🌙 深色/浅色主题切换
-- 📱 响应式设计
-- 🔍 SEO优化
-- ⚡ 快速加载
-- ♿ 无障碍访问
-- 📊 阅读进度指示器
-- 🔍 全文搜索
-- 🏷️ 标签分类系统
+- 🌙 Dark/light theme toggle
+- 📱 Responsive design
+- 🔍 SEO optimization
+- ⚡ Fast loading
+- ♿ Accessibility support
+- 📊 Reading progress indicator
+- 🔍 Full-text search
+- 🏷️ Tag categorization system
 
-## 内容特色
+## Content Focus
 
-我们的博客专注于以下技术领域：
+Our blog focuses on the following technical areas:
 
-### 前端开发
-- React生态系统最佳实践
-- 现代CSS技术和架构
-- 性能优化策略
+### Frontend Development
+- React ecosystem best practices
+- Modern CSS techniques and architecture
+- Performance optimization strategies
 
-### 开发体验
-- 开发者工具和工作流程
-- 代码质量和测试
-- 团队协作实践
+### Developer Experience
+- Developer tools and workflows
+- Code quality and testing
+- Team collaboration practices
 
-### 系统架构
-- 微前端架构
-- 设计系统构建
-- 可访问性设计
+### System Architecture
+- Micro-frontend architecture
+- Design system building
+- Accessibility design
 
-## 联系方式
+## Contact Us
 
-我们很乐意听到您的声音！通过以下渠道联系我们：
+We'd love to hear from you! Contact us through these channels:
 
-- **GitHub**: [查看开源项目](https://github.com/encorexin/AstroNova)
-- **技术讨论**: 在GitHub Issues中提出问题和建议
-- **内容合作**: 欢迎技术投稿和合作
+- **GitHub**: [View open source projects](https://github.com/encorexin/AstroNova)
+- **Technical discussion**: Submit questions and suggestions in GitHub Issues
+- **Content collaboration**: Welcome technical contributions and partnerships
 
-## 开源贡献
+## Open Source Contribution
 
-本项目采用MIT开源协议。欢迎：
+This project uses the MIT open source license. Welcome:
 
-- 🐛 提交Bug报告
-- ✨ 提出新功能建议
-- 📖 改进文档
-- 🔧 贡献代码
+- 🐛 Submit bug reports
+- ✨ Propose new feature suggestions
+- 📖 Improve documentation
+- 🔧 Contribute code
 
-访问我们的[GitHub仓库](https://github.com/encorexin/AstroNova)了解更多贡献信息。
+Visit our [GitHub repository](https://github.com/encorexin/AstroNova) to learn more about contributing.
 
 ---
 
-*最后更新时间：2024年*
+*Last updated: 2024*
 
-> 感谢您访问我们的博客！希望这里的内容对您有所帮助。
+> Thank you for visiting our blog! We hope the content here is helpful to you.

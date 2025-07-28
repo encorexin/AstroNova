@@ -1,7 +1,7 @@
 {
   "name": "AstroNova",
   "short_name": "AstroNova",
-  "description": "AstroNova - 现代化的 Astro 博客，快速且美观",
+  "description": "AstroNova - Modern Astro blog, fast and beautiful",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

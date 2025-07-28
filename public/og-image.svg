@@ -22,10 +22,10 @@
   
   <!-- Title -->
   <text x="600" y="350" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif" font-weight="bold">AstroNova</text>
-  <text x="600" y="400" text-anchor="middle" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">现代化博客，极致性能体验</text>
+  <text x="600" y="400" text-anchor="middle" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">Modern blog with ultimate performance experience</text>
   
   <!-- Tagline -->
-  <text x="600" y="480" text-anchor="middle" fill="#64748b" font-size="20" font-family="Arial, sans-serif">使用 Astro + Tailwind CSS 构建的高性能博客</text>
+  <text x="600" y="480" text-anchor="middle" fill="#64748b" font-size="20" font-family="Arial, sans-serif">High-performance blog built with Astro + Tailwind CSS</text>
   
   <!-- Decorative elements -->
   <circle cx="200" cy="500" r="40" fill="url(#ogAccent)" opacity="0.3"/>

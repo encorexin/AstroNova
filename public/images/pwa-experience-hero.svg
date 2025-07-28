@@ -19,31 +19,31 @@
     <!-- App-like experience -->
     <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">📱</text>
-    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">原生体验</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">Native Experience</text>
   </g>
   
   <g transform="translate(500, 250)">
     <!-- Fast loading -->
     <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">⚡</text>
-    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">快速加载</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">Fast Loading</text>
   </g>
   
   <g transform="translate(700, 250)">
     <!-- Offline support -->
     <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">📡</text>
-    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">离线支持</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">Offline Support</text>
   </g>
   
   <g transform="translate(900, 250)">
     <!-- Push notifications -->
     <circle cx="0" cy="0" r="50" fill="url(#pwaExpAccent)"/>
     <text x="0" y="10" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">🔔</text>
-    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">推送通知</text>
+    <text x="0" y="80" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">Push Notifications</text>
   </g>
   
   <!-- Title -->
-  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">PWA体验升级</text>
-  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">从网页到原生应用的完美蜕变</text>
+  <text x="600" y="100" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif" font-weight="bold">PWA Experience Upgrade</text>
+  <text x="600" y="130" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Arial, sans-serif">Perfect transformation from web to native app</text>
 </svg>

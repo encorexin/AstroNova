@@ -30,6 +30,6 @@
   </g>
   
   <!-- Title -->
-  <text x="600" y="350" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif" font-weight="bold">欢迎来到 AstroNova</text>
-  <text x="600" y="390" text-anchor="middle" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">现代Web开发的未来</text>
+  <text x="600" y="350" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif" font-weight="bold">Welcome to AstroNova</text>
+  <text x="600" y="390" text-anchor="middle" fill="#94a3b8" font-size="24" font-family="Arial, sans-serif">The Future of Modern Web Development</text>
 </svg>
