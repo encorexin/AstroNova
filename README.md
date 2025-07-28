@@ -1,10 +1,10 @@
-# AstroNova
+# Astro Nova
 
-A modern, lightning-fast blog theme built with Astro and Tailwind CSS. AstroNova combines elegant design with exceptional performance, featuring a comprehensive suite of tools for content creators and developers.
+A production-ready, lightning-fast blog built with Astro and Tailwind CSS. Astro Nova demonstrates modern web development best practices with comprehensive performance optimization, accessibility standards, and developer experience enhancements.
 
 ## 🌟 Overview
 
-AstroNova is a production-ready blog template that prioritizes speed, accessibility, and user experience. Built on Astro's island architecture, it delivers exceptional performance scores while maintaining beautiful aesthetics and robust functionality.
+Astro Nova is a fully-featured technical blog showcasing advanced Astro capabilities, WCAG 2.1 AAA accessibility compliance, and cutting-edge web performance techniques. This project serves as both a functional blog and a reference implementation for building high-performance content-driven websites.
 
 ## ✨ Key Features
 
@@ -30,23 +30,23 @@ AstroNova is a production-ready blog template that prioritizes speed, accessibil
 - 📦 **PWA Ready** - Service worker, offline support, and app manifest
 
 ### User Experience
-- 📖 **Reading Progress** - Visual progress indicator with time estimates
-- 🔖 **Reading Time** - Automatic reading time calculation
-- 🖼️ **Image Optimization** - Automatic responsive images with lazy loading
-- ♿ **WCAG 2.1 AA** - Fully accessible with keyboard navigation and screen reader support
+- 📖 **Reading Progress** - Visual progress indicator with accurate time estimates
+- 🔖 **Reading Time** - Precise reading time calculation for technical content
+- 🖼️ **Image Optimization** - Responsive images with WebP/AVIF support and lazy loading
+- ♿ **WCAG 2.1 AAA** - Industry-leading accessibility compliance with comprehensive keyboard navigation and screen reader optimization
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Node.js**: 18.0.0 or higher
-- **Package Manager**: pnpm (recommended), npm, or yarn
+- **Node.js**: 18.0.0 or higher (LTS recommended)
+- **Package Manager**: pnpm (required for optimal performance)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/encorexin/astronova.git
-   cd astronova
+   git clone https://github.com/your-username/astro-nova.git
+   cd astro-nova
    ```
 
 2. **Install dependencies**
@@ -121,39 +121,34 @@ Edit `src/config/site.ts` for global settings:
 ```typescript
 export const siteConfig = {
   // Site Identity
-  title: "AstroNova",
-  description: "Modern blog template built with Astro",
-  url: "https://astronova.dev",
+  title: "Astro Nova",
+  description: "A production-ready technical blog showcasing modern web development practices with Astro",
+  url: "https://astro-nova-demo.vercel.app",
   baseUrl: "/",
   
   // Author Information
   author: {
-    name: "Your Name",
-    email: "hello@yourdomain.com",
-    url: "https://yourdomain.com",
-    avatar: "/images/avatar.jpg",
-    bio: "Full-stack developer and content creator",
+    name: "Astro Nova Team",
+    email: "team@astro-nova.dev",
+    url: "https://astro-nova.dev",
+    avatar: "/images/avatar.png",
+    bio: "Building exceptional web experiences with modern technologies",
   },
   
   // Social Links
   social: {
-    github: "https://github.com/yourusername",
-    twitter: "https://twitter.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    mastodon: "https://mastodon.social/@yourusername",
+    github: "https://github.com/astro-nova/astro-nova",
+    twitter: "https://twitter.com/astro_nova_dev",
+    linkedin: "https://linkedin.com/company/astro-nova",
     rss: "/rss.xml",
   },
   
   // SEO & Analytics
   seo: {
-    defaultImage: "/og-image.png",
-    twitterHandle: "@yourusername",
+    defaultImage: "/og-astro-nova.png",
+    twitterHandle: "@astro_nova_dev",
     analytics: {
-      google: "G-XXXXXXXXXX",
-      umami: {
-        src: "https://umami.example.com/script.js",
-        id: "your-website-id",
-      },
+      google: "G-DEMO-ANALYTICS-ID",
     },
   },
   
@@ -161,23 +156,21 @@ export const siteConfig = {
   nav: [
     { name: "Home", url: "/" },
     { name: "Blog", url: "/blog" },
-    { name: "About", url: "/about" },
     { name: "Categories", url: "/categories" },
     { name: "Tags", url: "/tags" },
   ],
   
   // Comments
   comments: {
-    provider: "giscus", // giscus, disqus, or utterances
+    provider: "giscus",
     giscus: {
-      repo: "yourusername/yourrepo",
-      repoId: "your-repo-id",
-      category: "General",
-      categoryId: "your-category-id",
+      repo: "astro-nova/astro-nova",
+      repoId: "demo-repo-id",
+      category: "Blog Comments",
+      categoryId: "demo-category-id",
     },
   },
-};
-```
+};```
 
 ### Design System
 Customize the design system in `tailwind.config.mjs`:
@@ -280,52 +273,60 @@ pnpm build
 
 ### Deployment Platforms
 
+#### Vercel (Recommended)
+Deploy directly from GitHub with zero configuration:
+
+1. Import your repository on [Vercel](https://vercel.com)
+2. Use default Astro settings
+3. Deploy with automatic CI/CD
+
 #### Netlify
-```bash
-# netlify.toml
+Configure with netlify.toml:
+
+```toml
 [build]
   command = "pnpm build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "18"
-```
-
-#### Vercel
-```json
-{
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
-  "devCommand": "pnpm dev"
-}
+  PNPM_VERSION = "8"
 ```
 
 #### GitHub Pages
+Use the official Astro GitHub Action:
+
 ```yaml
 # .github/workflows/deploy.yml
-name: Deploy to GitHub Pages
+name: Deploy Astro Nova to GitHub Pages
 on:
   push:
     branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: withastro/action@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v2
 ```
 
 ### Environment Variables
 Create `.env` file:
 
 ```bash
-# Analytics
-GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
-UMAMI_WEBSITE_ID=your-website-id
+# Analytics (Optional)
+GOOGLE_ANALYTICS_ID=G-YOUR-ANALYTICS-ID
 
-# Comments
-GISCUS_REPO=yourusername/yourrepo
+# Comments (Optional)
+GISCUS_REPO=your-username/your-repo
 GISCUS_REPO_ID=your-repo-id
+GISCUS_CATEGORY_ID=your-category-id
 ```
 
 ## 🛠️ Development
@@ -382,27 +383,28 @@ interface BlogPost {
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how to get started:
+Contributions are welcome! This project serves as a reference implementation, so improvements that enhance the demonstration of modern web development practices are particularly valuable.
 
 1. **Fork the repository**
 2. **Create a feature branch**
    ```bash
-   git checkout -b feature/your-feature
+   git checkout -b feature/description
    ```
 3. **Make your changes**
 4. **Verify code quality**
    ```bash
    pnpm lint
    pnpm type-check
-   pnpm format:biome
+   pnpm format
    ```
 5. **Submit a pull request**
 
 ### Contribution Guidelines
-- Follow the existing code style
-- Update documentation
-- Ensure accessibility standards
-- Include performance considerations
+- Maintain TypeScript strict mode compliance
+- Ensure WCAG 2.1 AAA accessibility standards
+- Follow performance optimization best practices
+- Update relevant documentation
+- Include appropriate test cases for new features
 
 ## 📄 License
 
@@ -410,12 +412,13 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-- [Astro](https://astro.build) - The web framework for content-driven websites
-- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
-- [TypeScript](https://typescriptlang.org) - Type safety and developer experience
-- [Vercel](https://vercel.com) - Deployment platform
-- [Netlify](https://netlify.com) - Static hosting
+This project demonstrates the power of the modern web ecosystem:
+
+- [Astro](https://astro.build) - Revolutionary island architecture for optimal performance
+- [Tailwind CSS](https://tailwindcss.com) - Efficient utility-first styling system
+- [TypeScript](https://typescriptlang.org) - Type-safe development experience
+- [Vercel](https://vercel.com) - Seamless deployment and edge optimization
 
 ---
 
-**Built with ❤️ using modern web technologies**
+**Built to showcase modern web development excellence**

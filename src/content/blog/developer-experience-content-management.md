@@ -111,7 +111,7 @@ Changes reflect immediately during development:
 
 ```bash
 # Start development server
-npm run dev
+pnpm dev
 
 # Edit any .md file and see changes instantly
 # No browser refresh required
@@ -270,10 +270,10 @@ Automated code quality:
 
 ```bash
 # Check content quality
-npm run lint:content
+pnpm lint:content
 
 # Format all content
-npm run format:content
+pnpm format:content
 ```
 
 ## Migration and Import Tools
@@ -304,13 +304,13 @@ Handle large content migrations:
 
 ```bash
 # Batch process images
-npm run optimize:images
+pnpm optimize:images
 
 # Generate thumbnails
-npm run generate:thumbnails
+pnpm generate:thumbnails
 
 # Validate all content
-npm run validate:content
+pnpm validate:content
 ```
 
 ## Analytics and Insights

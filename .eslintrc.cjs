@@ -1,7 +1,7 @@
 module.exports = {
   extends: [
     'eslint:recommended',
-    '@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:astro/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -19,7 +19,7 @@ module.exports = {
         extraFileExtensions: ['.astro'],
       },
       rules: {
-        'astro/no-set-html-directive': 'error',
+        'astro/no-set-html-directive': 'off', // Allow set:html for JSON-LD
         'astro/no-set-text-directive': 'error',
       },
     },

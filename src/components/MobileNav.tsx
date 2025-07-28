@@ -1,8 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-// Note: If you get module not found error, run `npm install framer-motion` or `yarn add framer-motion` to install the dependency
-// If you still have type declaration issues, run `npm install --save-dev @types/framer-motion` to install type declarations
-// Note: If you get module not found error, run `npm install framer-motion` or `yarn add framer-motion` to install the dependency
 import { siteConfig } from '@/config/site';
 
 const MobileNav = () => {

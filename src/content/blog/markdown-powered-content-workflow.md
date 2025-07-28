@@ -59,7 +59,7 @@ Developers can preview content changes in real-time:
 
 ```bash
 # Start development server with hot reload
-npm run dev
+pnpm dev
 
 # Content changes reflect instantly
 # No build step required for content updates

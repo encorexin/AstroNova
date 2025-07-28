@@ -166,10 +166,11 @@ Our PWA delivers consistent experiences across:
 We leverage Astro's static generation with PWA enhancements:
 
 ```typescript
-// Astro PWA configuration
+// Astro PWA configuration for Astro Nova
 export default defineConfig({
   integrations: [
     AstroPWA({
+      registerType: 'autoUpdate',
       workbox: {
         navigateFallback: '/offline',
         globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,svg,woff2}'],
@@ -181,6 +182,34 @@ export default defineConfig({
               cacheName: 'google-fonts',
               expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+        ],
+      },
+      manifest: {
+        name: 'Astro Nova',
+        short_name: 'AstroNova',
+        description: 'A modern technical blog built with Astro',
+        theme_color: '#0f172a',
+        background_color: '#ffffff',
+        display: 'standalone',
+        icons: [
+          {
+            src: '/icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: '/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
           },
         ],
       },

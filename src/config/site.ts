@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
   },
 
   // Analytics configuration - set to null or your GA4 ID to enable
-  googleAnalytics: null, // e.g: 'G-XXXXXXXXXX',
+  googleAnalytics: 'G-S23YDK9JK6', // e.g: 'G-XXXXXXXXXX',
 
   // PWA configuration
   pwa: {
@@ -45,8 +45,8 @@ export const siteConfig: SiteConfig = {
   giscus: {
     repo: 'encorexin/AstroNova',
     repoId: 'R_kgDOPT2eLQ',
-    category: 'Blog Comments',
-    categoryId: 'DIC_kwDOPT2eLM4CehsU',
+    category: 'Announcements',
+    categoryId: 'DIC_kwDOPT2eLc4CtfLK',
     mapping: 'pathname',
     reactionsEnabled: '1',
     emitMetadata: '0',
