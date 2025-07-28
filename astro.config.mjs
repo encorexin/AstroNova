@@ -7,9 +7,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://yourblog.com',
   base: '/',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   build: {
-    format: 'file',
+    format: 'directory',
   },
   integrations: [
     tailwind({
