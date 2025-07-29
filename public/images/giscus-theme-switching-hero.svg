@@ -1,0 +1,138 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3f4f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="darkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1f2937;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#lightGradient)"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="bold" fill="#111827">
+    Giscus Theme Switching Architecture
+  </text>
+
+  <!-- Browser Window -->
+  <g transform="translate(50, 60)">
+    <rect x="0" y="0" width="700" height="300" rx="8" fill="white" stroke="#d1d5db" stroke-width="2" filter="url(#shadow)"/>
+    
+    <!-- Browser Header -->
+    <rect x="0" y="0" width="700" height="30" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+    <circle cx="15" cy="15" r="4" fill="#ef4444"/>
+    <circle cx="30" cy="15" r="4" fill="#f59e0b"/>
+    <circle cx="45" cy="15" r="4" fill="#10b981"/>
+    
+    <!-- Website Content -->
+    <rect x="20" y="40" width="660" height="60" rx="4" fill="#f3f4f6"/>
+    <text x="40" y="65" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#111827">
+      Blog Post Content
+    </text>
+    
+    <!-- Giscus Comments Section -->
+    <rect x="20" y="110" width="660" height="160" rx="4" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+    <text x="40" y="130" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#111827">
+      Comments Section (Giscus)
+    </text>
+    
+    <!-- Comment Examples -->
+    <rect x="40" y="140" width="300" height="40" rx="4" fill="white" stroke="#e5e7eb"/>
+    <text x="50" y="160" font-family="Inter, sans-serif" font-size="10" fill="#6b7280">
+      Great article! Very helpful.
+    </text>
+    
+    <rect x="380" y="140" width="260" height="40" rx="4" fill="white" stroke="#e5e7eb"/>
+    <text x="390" y="160" font-family="Inter, sans-serif" font-size="10" fill="#6b7280">
+      Thanks for sharing this!
+    </text>
+    
+    <!-- Theme Toggle -->
+    <g transform="translate(600, 45)">
+      <circle cx="20" cy="15" r="12" fill="#fbbf24"/>
+      <path d="M15 15 L18 18 L22 12" stroke="#92400e" stroke-width="2" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Theme Detection Flow -->
+  <g transform="translate(50, 380)">
+    <!-- Detection Steps -->
+    <rect x="0" y="0" width="120" height="25" rx="12" fill="#3b82f6" opacity="0.9"/>
+    <text x="60" y="17" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="white">
+      localStorage
+    </text>
+    
+    <rect x="140" y="0" width="120" height="25" rx="12" fill="#8b5cf6" opacity="0.9"/>
+    <text x="200" y="17" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="white">
+      HTML Class
+    </text>
+    
+    <rect x="280" y="0" width="120" height="25" rx="12" fill="#06b6d4" opacity="0.9"/>
+    <text x="340" y="17" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="white">
+      System Pref
+    </text>
+    
+    <!-- Arrow -->
+    <path d="M120 12 L140 12" stroke="#6b7280" stroke-width="1" marker-end="url(#arrowhead)"/>
+    <path d="M260 12 L280 12" stroke="#6b7280" stroke-width="1" marker-end="url(#arrowhead)"/>
+  </g>
+
+  <!-- Dark Mode Preview -->
+  <g transform="translate(400, 280)">
+    <rect x="0" y="0" width="150" height="80" rx="4" fill="url(#darkGradient)" stroke="#4b5563" stroke-width="1"/>
+    <text x="75" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#f9fafb">
+      Dark Mode
+    </text>
+    <rect x="10" y="30" width="130" height="15" rx="2" fill="#374151"/>
+    <rect x="10" y="50" width="80" height="15" rx="2" fill="#4b5563"/>
+  </g>
+
+  <!-- Light Mode Preview -->
+  <g transform="translate(250, 280)">
+    <rect x="0" y="0" width="150" height="80" rx="4" fill="url(#lightGradient)" stroke="#d1d5db" stroke-width="1"/>
+    <text x="75" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#111827">
+      Light Mode
+    </text>
+    <rect x="10" y="30" width="130" height="15" rx="2" fill="#e5e7eb"/>
+    <rect x="10" y="50" width="80" height="15" rx="2" fill="#f3f4f6"/>
+  </g>
+
+  <!-- Connection Lines -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- PostMessage API -->
+  <g transform="translate(550, 200)">
+    <rect x="0" y="0" width="120" height="30" rx="15" fill="#10b981" opacity="0.8"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="white">
+      postMessage()
+    </text>
+  </g>
+
+  <!-- Observer Pattern -->
+  <g transform="translate(550, 240)">
+    <rect x="0" y="0" width="120" height="30" rx="15" fill="#f59e0b" opacity="0.8"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="white">
+      MutationObserver
+    </text>
+  </g>
+
+  <!-- Labels -->
+  <text x="650" y="85" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#111827">
+    Theme Toggle
+  </text>
+  
+  <text x="400" y="370" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#6b7280">
+    Theme Detection → Dynamic Loading → Real-time Updates
+  </text>
+</svg>

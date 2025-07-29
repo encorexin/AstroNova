@@ -20,7 +20,7 @@ export const siteConfig: SiteConfig = {
     { name: 'Tags', href: '/tags/' },
     { name: 'Categories', href: '/categories/' },
     { name: 'About', href: '/about/' },
-    { name: 'Performance', href: '/performance/' },
+    //{ name: 'Performance', href: '/performance/' },
   ],
 
   // SEO configuration

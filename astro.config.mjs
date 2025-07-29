@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import compress from 'astro-compress';
 import critters from 'astro-critters';
+import { robotsTxt } from './src/integrations/robots-txt';
 
 export default defineConfig({
   site: 'https://nova.encorexin.online',
@@ -44,6 +45,7 @@ export default defineConfig({
       preload: 'swap',
       pruneSource: false,
     }),
+    robotsTxt(),
   ],
   markdown: {
     shikiConfig: {

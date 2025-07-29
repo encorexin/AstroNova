@@ -11,7 +11,8 @@
     "astro": "astro",
     "lint": "eslint . --ext .ts,.tsx,.astro",
     "format": "prettier --write .",
-    "type-check": "astro check && tsc --noEmit"
+    "type-check": "astro check && tsc --noEmit",
+    "newpost": "node scripts/newpost.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
