@@ -3,11 +3,11 @@ import type { SiteConfig } from '@/types/blog';
 export const siteConfig: SiteConfig = {
   title: 'AstroNova',
   description: 'Modern blog built with Astro and Tailwind CSS',
-  url: 'https://astro-nova-five.vercel.app/',
+  url: 'https://nova.encorexin.online/',
   author: {
     name: 'AstroNova',
     email: 'astro-nova@example.com',
-    url: 'https://astro-nova-five.vercel.app/',
+    url: 'https://nova.encorexin.online/',
   },
   social: {
     github: 'https://github.com/encorexin',
