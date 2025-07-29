@@ -6,6 +6,7 @@ import Footer from '@/components/Footer.astro';
 import ThemeScript from '@/components/ThemeScript.astro';
 import ImageLightbox from '@/components/ImageLightbox.astro';
 import ScrollToTop from '@/components/ScrollToTop.astro';
+import FontOptimizer from '@/components/FontOptimizer.astro';
 import SEO from '@/components/SEO.astro';
 import Analytics from '@vercel/analytics/astro';
 
@@ -54,18 +55,15 @@ const canonicalURL = canonical
     />
     <Analytics />
     <ThemeScript />
-
+    
+    <!-- Font optimization -->
+    <FontOptimizer />
+    
+    <!-- Performance optimization -->
+    <link rel="modulepreload" href="/_astro/client.BPIbHqJh.js" />
+    <link rel="prefetch" href="/_astro/proxy.BbX1wWsc.js" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin="anonymous"
-    />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   </head>
   <body class="min-h-screen bg-background font-sans antialiased">
     <div class="relative flex min-h-screen flex-col">

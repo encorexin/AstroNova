@@ -1,0 +1,46 @@
+---
+// Font optimization component to reduce font loading impact
+export interface Props {
+  fontFamily?: string;
+  fontWeights?: string[];
+  display?: 'swap' | 'optional' | 'fallback' | 'auto';
+}
+
+const {
+  fontFamily = 'Inter',
+  fontWeights = ['300', '400', '500', '600', '700'],
+  display = 'swap'
+} = Astro.props;
+
+const fontUrl = `https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${fontWeights.join(';')}&display=${display}`;
+---
+
+<!-- Critical font loading optimization -->
+<link rel="preload" href={fontUrl} as="style" />
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+
+<!-- Async font loading with fallback -->
+<link href={fontUrl} rel="stylesheet" media="print" onload="this.media='all'" />
+
+<!-- Fallback for no-JS environments -->
+<noscript>
+  <link href={fontUrl} rel="stylesheet" />
+</noscript>
+
+<!-- Font display optimization -->
+<style is:inline>
+  /* Critical font styles to prevent FOIT */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2') format('woff2');
+  }
+  
+  /* System font fallback */
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  }
+</style>

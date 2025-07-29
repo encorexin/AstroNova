@@ -113,11 +113,7 @@ const structuredData = {
 />
 
 <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://giscus.app" />
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="dns-prefetch" href="https://giscus.app" />
 
   <!-- Performance optimization -->
@@ -127,15 +123,12 @@ const structuredData = {
   <meta name="apple-mobile-web-app-title" content={siteConfig.title} />
   <meta name="application-name" content={siteConfig.title} />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="format-detection" content="date=no" />
-  <meta name="format-detection" content="address=no" />
-  <meta name="format-detection" content="email=no" />
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Critical rendering optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
 
   <!-- Security headers -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
