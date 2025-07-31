@@ -1,4 +1,6 @@
 # Astro Nova
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fencorexin%2FAstroNova.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fencorexin%2FAstroNova?ref=badge_shield)
+
 
 A production-ready, lightning-fast blog built with Astro and Tailwind CSS. Astro Nova demonstrates modern web development best practices with comprehensive performance optimization, accessibility standards, and developer experience enhancements.
 
@@ -409,6 +411,9 @@ Contributions are welcome! This project serves as a reference implementation, so
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) for details.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fencorexin%2FAstroNova.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fencorexin%2FAstroNova?ref=badge_large)
 
 ## 🙏 Acknowledgments
 
