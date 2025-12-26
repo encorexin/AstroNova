@@ -4,12 +4,12 @@
  */
 ---
 
-<!-- 搜索按钮 -->
+<!-- Search Button -->
 <button
   type="button"
   id="mobileSearchOpen"
   class="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
-  aria-label="搜索"
+  aria-label="Search"
 >
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <circle cx="11" cy="11" r="8"></circle>
@@ -17,18 +17,18 @@
   </svg>
 </button>
 
-<!-- 搜索模态框 - 使用内联样式确保完全覆盖 -->
+<!-- Search Modal -->
 <div 
   id="mobileSearchOverlay" 
   style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;z-index:999999;background-color:hsl(var(--background));overflow:hidden;"
 >
   <div style="display:flex;flex-direction:column;height:100%;padding:16px;padding-top:max(16px, env(safe-area-inset-top));">
-    <!-- 顶部栏 -->
+    <!-- Header -->
     <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
       <input
         type="text"
         id="mobileSearchField"
-        placeholder="搜索文章..."
+        placeholder="Search articles..."
         style="flex:1;padding:12px 16px;border-radius:8px;border:1px solid hsl(var(--border));background:hsl(var(--background));color:hsl(var(--foreground));font-size:16px;outline:none;"
         inputmode="search"
         autocomplete="off"
@@ -38,16 +38,16 @@
         id="mobileSearchClose"
         style="padding:8px 12px;font-size:14px;font-weight:500;color:hsl(var(--primary));background:none;border:none;cursor:pointer;"
       >
-        取消
+        Cancel
       </button>
     </div>
-    <!-- 结果区域 -->
+    <!-- Results -->
     <div 
       id="mobileSearchOutput" 
       style="flex:1;overflow-y:auto;margin-top:16px;-webkit-overflow-scrolling:touch;"
     >
       <div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));">
-        <p>输入关键词搜索</p>
+        <p>Type to search articles</p>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
     }
     
     mobileSearchInitialized = true;
-    console.log('[MobileSearch] 初始化成功');
+    console.log('[MobileSearch] Initialized');
     
     let articles: any[] | null = null;
     let searchTimer: number | undefined;
@@ -84,14 +84,16 @@
       try {
         const res = await fetch('/api/search.json');
         articles = await res.json();
-        console.log('[MobileSearch] 加载了', articles?.length, '篇文章');
+        console.log('[MobileSearch] Loaded', articles?.length, 'articles');
       } catch (e) {
-        console.error('[MobileSearch] 加载失败:', e);
+        console.error('[MobileSearch] Load failed:', e);
         articles = [];
       }
     }
     
     function openSearch() {
+      if (!overlay || !field || !output) return;
+      
       scrollPos = window.scrollY;
       overlay.style.display = 'block';
       document.body.style.overflow = 'hidden';
@@ -99,12 +101,14 @@
       document.body.style.top = `-${scrollPos}px`;
       document.body.style.width = '100%';
       field.value = '';
-      output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>输入关键词搜索</p></div>';
+      output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>Type to search articles</p></div>';
       setTimeout(() => field.focus(), 50);
       loadArticles();
     }
     
     function closeSearch() {
+      if (!overlay) return;
+      
       overlay.style.display = 'none';
       document.body.style.overflow = '';
       document.body.style.position = '';
@@ -114,20 +118,22 @@
     }
     
     async function doSearch() {
+      if (!field || !output) return;
+      
       const query = field.value.trim().toLowerCase();
       
       if (query.length < 2) {
-        output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>输入关键词搜索</p></div>';
+        output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>Type to search articles</p></div>';
         return;
       }
       
       if (!articles) {
-        output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>加载中...</p></div>';
+        output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>Loading...</p></div>';
         await loadArticles();
       }
       
       if (!articles || articles.length === 0) {
-        output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>暂无文章</p></div>';
+        output.innerHTML = '<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>No articles found</p></div>';
         return;
       }
       
@@ -139,10 +145,10 @@
         return titleMatch || descMatch || catMatch || tagMatch;
       });
       
-      console.log('[MobileSearch] 搜索:', query, '结果:', results.length);
+      console.log('[MobileSearch] Search:', query, 'Results:', results.length);
       
       if (results.length === 0) {
-        output.innerHTML = `<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>未找到 "${escapeHtml(query)}" 相关文章</p></div>`;
+        output.innerHTML = `<div style="padding:32px 0;text-align:center;color:hsl(var(--muted-foreground));"><p>No results for "${escapeHtml(query)}"</p></div>`;
         return;
       }
       

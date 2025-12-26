@@ -1,0 +1,72 @@
+---
+/**
+ * Post Navigation Component
+ * Shows previous and next article links
+ */
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+
+// Get all published posts sorted by date
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+
+// Find current post index
+const currentIndex = sortedPosts.findIndex(post => post.slug === currentSlug);
+
+// Get previous and next posts
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+---
+
+{(prevPost || nextPost) && (
+  <nav class="mt-12 border-t pt-8" aria-label="Post navigation">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {/* Previous Post */}
+      {prevPost ? (
+        <a
+          href={`/blog/${prevPost.slug}`}
+          class="group flex flex-col rounded-lg border p-4 transition-colors hover:bg-muted/50"
+        >
+          <span class="mb-2 text-xs text-muted-foreground flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Previous
+          </span>
+          <span class="font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
+            {prevPost.data.title}
+          </span>
+        </a>
+      ) : (
+        <div></div>
+      )}
+
+      {/* Next Post */}
+      {nextPost ? (
+        <a
+          href={`/blog/${nextPost.slug}`}
+          class="group flex flex-col rounded-lg border p-4 transition-colors hover:bg-muted/50 sm:text-right"
+        >
+          <span class="mb-2 text-xs text-muted-foreground flex items-center gap-1 sm:justify-end">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </span>
+          <span class="font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
+            {nextPost.data.title}
+          </span>
+        </a>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  </nav>
+)}

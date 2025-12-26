@@ -7,39 +7,70 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 6;
   const posts = await getCollection('blog');
-  const publishedPosts = posts
-    .filter((post) => !post.data.draft)
+  const publishedPosts = posts.filter((post) => !post.data.draft);
+
+  // Separate pinned and regular posts
+  const pinnedPosts = publishedPosts
+    .filter((post) => post.data.pinned)
     .sort(
       (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
     );
 
-  const totalPages = Math.ceil(publishedPosts.length / POSTS_PER_PAGE);
+  const regularPosts = publishedPosts
+    .filter((post) => !post.data.pinned)
+    .sort(
+      (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+    );
 
-  return Array.from({ length: totalPages }, (_, i) => ({
-    params: { page: (i + 1).toString() },
-    props: { posts: publishedPosts },
-  }));
+  // For page 1: pinned posts + regular posts to fill the page
+  // For page 2+: only regular posts (excluding those shown on page 1)
+  const page1Posts = [
+    ...pinnedPosts,
+    ...regularPosts.slice(0, POSTS_PER_PAGE - pinnedPosts.length),
+  ];
+  const remainingPosts = regularPosts.slice(
+    POSTS_PER_PAGE - pinnedPosts.length
+  );
+
+  const totalPages = 1 + Math.ceil(remainingPosts.length / POSTS_PER_PAGE);
+
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNum = i + 1;
+    let pagePosts;
+
+    if (pageNum === 1) {
+      pagePosts = page1Posts;
+    } else {
+      const startIndex = (pageNum - 2) * POSTS_PER_PAGE;
+      pagePosts = remainingPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+    }
+
+    return {
+      params: { page: pageNum.toString() },
+      props: {
+        pagePosts,
+        totalPages,
+        allPosts: publishedPosts,
+      },
+    };
+  });
 }
 
-const POSTS_PER_PAGE = 6;
-const { posts: publishedPosts } = Astro.props;
+const { pagePosts, totalPages, allPosts } = Astro.props;
 const { page } = Astro.params;
 
-const allTags = [...new Set(publishedPosts.flatMap((post) => post.data.tags))];
+const allTags = [...new Set(allPosts.flatMap((post: any) => post.data.tags))];
 const allCategories = [
-  ...new Set(publishedPosts.map((post) => post.data.category)),
+  ...new Set(allPosts.map((post: any) => post.data.category)),
 ];
 
-const totalPages = Math.ceil(publishedPosts.length / POSTS_PER_PAGE);
 const currentPage = parseInt(page || '1', 10);
 
 if (currentPage < 1 || currentPage > totalPages) {
   return Astro.redirect('/404');
 }
 
-const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-const endIndex = startIndex + POSTS_PER_PAGE;
-const paginatedPosts = publishedPosts.slice(startIndex, endIndex);
+const paginatedPosts = pagePosts;
 
 const title = currentPage === 1 ? 'Blog' : `Blog - Page ${currentPage}`;
 ---

@@ -107,7 +107,10 @@
     constructor() {
       this.lightbox = document.querySelector('[data-lightbox]');
       this.lightboxImage = document.querySelector('[data-lightbox-image]');
-      this.images = document.querySelectorAll('img');
+      // Exclude images with data-no-lightbox attribute
+      this.images = Array.from(document.querySelectorAll('img')).filter(
+        (img) => !img.hasAttribute('data-no-lightbox')
+      );
       this.currentIndex = 0;
 
       this.init();
@@ -115,7 +118,7 @@
 
     init() {
       this.images.forEach((img, index) => {
-        img.style.cursor = 'pointer';
+        img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => this.open(index));
       });
 

@@ -7,6 +7,7 @@ tags: ['astro', 'architecture', 'performance', 'modern-web']
 heroImage: '/images/welcome-hero.svg'
 draft: false
 featured: true
+pinned: true
 ---
 
 Welcome to Astro Nova, a showcase of modern web development practices and technical excellence. This blog serves as both a content platform and a living demonstration of cutting-edge web technologies working in harmony.

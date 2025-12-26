@@ -10,6 +10,9 @@ import TableOfContents from '../components/TableOfContents.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 import Mermaid from '../components/Mermaid.astro';
+import PostNavigation from '../components/PostNavigation.astro';
+import CodeCopy from '../components/CodeCopy.astro';
+import ViewCounter from '../components/ViewCounter.astro';
 import { siteConfig } from '@/config/site';
 
 export interface Props {
@@ -71,6 +74,8 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200);
               }
               <span>•</span>
               <span>{readingTime} min read</span>
+              <span>•</span>
+              <ViewCounter slug={post.slug} />
             </div>
 
             <h1 class="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
@@ -148,11 +153,17 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200);
           <!-- Author Card -->
           <AuthorCard class="mt-8" />
 
+          <!-- Post Navigation -->
+          <PostNavigation currentSlug={post.slug} />
+
           <!-- Related Posts -->
           <RelatedPosts currentPost={post} maxPosts={3} />
 
           <!-- Comments -->
           <Comments slug={post.slug} title={title} />
+
+          <!-- Code Copy -->
+          <CodeCopy />
         </div>
 
         <!-- Table of Contents (Desktop Sidebar) -->

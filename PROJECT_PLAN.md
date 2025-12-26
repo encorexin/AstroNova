@@ -96,18 +96,23 @@ src/
 - [x] Author Card
 - [x] Featured posts support
 - [x] Mermaid diagrams support
+- [x] Post navigation (prev/next)
+- [x] Code copy button
+- [x] View counter
+- [x] PWA support (manifest + service worker)
+- [x] Pinned posts
 
 ### Performance Optimization
 
 - [x] Image optimization (WebP compression)
 - [x] Font optimization
 - [x] Code splitting
-- [ ] Caching strategies
+- [x] Caching strategies (Service Worker)
 - [x] Preloading strategies
 
 ## Tech Stack
 
-- Astro 4.x
+- Astro 5.x
 - TypeScript
 - Tailwind CSS
 - Framer Motion

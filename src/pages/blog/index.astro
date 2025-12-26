@@ -9,7 +9,13 @@ const POSTS_PER_PAGE = 6;
 const posts = await getCollection('blog');
 const publishedPosts = posts
   .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+  .sort((a, b) => {
+    // Pinned posts first
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+    // Then sort by publish date
+    return b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
+  });
 
 const allTags = [...new Set(publishedPosts.flatMap((post) => post.data.tags))];
 const allCategories = [

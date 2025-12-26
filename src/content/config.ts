@@ -12,18 +12,19 @@ const blog = defineCollection({
     heroImage: z.string().optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
+    pinned: z.boolean().default(false), // Pinned post
   }),
 });
 
 const pages = defineCollection({
-type: 'content',
-schema: z.object({
-title: z.string(),
-description: z.string(),
-}),
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
 });
 
 export const collections = {
-blog,
-pages,
+  blog,
+  pages,
 };
