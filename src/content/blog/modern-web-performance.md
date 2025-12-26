@@ -6,6 +6,7 @@ category: 'Performance'
 tags: ['performance', 'lighthouse', 'astro', 'optimization', 'web-vitals']
 heroImage: '/images/performance-hero.svg'
 draft: false
+featured: true
 ---
 
 In the age of instant gratification, website performance isn't just a luxury—it's a necessity. This blog demonstrates how modern web technologies can deliver exceptional user experiences while maintaining developer happiness. Let's dive into the architecture that powers these remarkable performance metrics.

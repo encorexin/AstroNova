@@ -1,0 +1,104 @@
+---
+/**
+ * Related Posts Component
+ * Displays posts related to the current post based on tags and category
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { formatDate } from '@/utils/date';
+
+export interface Props {
+  currentPost: CollectionEntry<'blog'>;
+  maxPosts?: number;
+}
+
+const { currentPost, maxPosts = 3 } = Astro.props;
+
+// Get all published posts except the current one
+const allPosts = await getCollection('blog');
+const otherPosts = allPosts.filter(
+  (post) => post.slug !== currentPost.slug && !post.data.draft
+);
+
+// Score posts based on matching tags and category
+interface ScoredPost {
+  post: CollectionEntry<'blog'>;
+  score: number;
+}
+
+const scoredPosts: ScoredPost[] = otherPosts.map((post) => {
+  let score = 0;
+
+  // +2 points for matching category
+  if (post.data.category === currentPost.data.category) {
+    score += 2;
+  }
+
+  // +1 point for each matching tag
+  const currentTags = currentPost.data.tags || [];
+  const postTags = post.data.tags || [];
+  const matchingTags = postTags.filter((tag: string) =>
+    currentTags.includes(tag)
+  );
+  score += matchingTags.length;
+
+  return { post, score };
+});
+
+// Sort by score and take top posts
+const relatedPosts = scoredPosts
+  .filter((sp) => sp.score > 0)
+  .sort((a, b) => {
+    // Primary: score (descending)
+    if (b.score !== a.score) return b.score - a.score;
+    // Secondary: date (descending)
+    return (
+      b.post.data.publishedAt.getTime() - a.post.data.publishedAt.getTime()
+    );
+  })
+  .slice(0, maxPosts)
+  .map((sp) => sp.post);
+---
+
+{
+  relatedPosts.length > 0 && (
+    <section class="mt-12 border-t pt-8">
+      <h2 class="mb-6 text-2xl font-bold tracking-tight">Related Posts</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {relatedPosts.map((post) => (
+          <article class="group rounded-lg border bg-card p-4 transition-all hover:shadow-md">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{post.data.category}</span>
+                <span>•</span>
+                <time datetime={post.data.publishedAt.toISOString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+              </div>
+              <h3 class="font-semibold leading-tight">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="transition-colors hover:text-primary"
+                >
+                  {post.data.title}
+                </a>
+              </h3>
+              <p class="line-clamp-2 text-sm text-muted-foreground">
+                {post.data.description}
+              </p>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1">
+                  {post.data.tags.slice(0, 2).map((tag: string) => (
+                    <span class="rounded bg-secondary px-2 py-0.5 text-xs text-secondary-foreground">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}

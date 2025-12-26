@@ -36,7 +36,9 @@ export default defineConfig({
           minifyJS: true,
         },
       },
-      Image: false,
+      Image: {
+        quality: 80,
+      },
       JavaScript: true,
       SVG: true,
       Logger: 1,

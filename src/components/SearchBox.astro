@@ -50,6 +50,8 @@ const { placeholder = 'Search articles...', className = '' } = Astro.props;
     private results: HTMLElement;
     private list: HTMLElement;
     private searchBtn: HTMLButtonElement;
+    private static postsCache: any[] | null = null;
+    private debounceTimer: number | null = null;
 
     constructor(element: HTMLElement) {
       this.container = element;
@@ -72,9 +74,23 @@ const { placeholder = 'Search articles...', className = '' } = Astro.props;
       this.input.addEventListener('keydown', this.handleKeydown.bind(this));
       this.searchBtn.addEventListener('click', this.handleSearch.bind(this));
       document.addEventListener('click', this.handleClickOutside.bind(this));
+      
+      // Preload posts on focus for faster search
+      this.input.addEventListener('focus', () => this.preloadPosts());
     }
 
-    private async handleInput(event: Event) {
+    private async preloadPosts() {
+      if (SearchBox.postsCache === null) {
+        try {
+          const response = await fetch('/api/search.json');
+          SearchBox.postsCache = await response.json();
+        } catch (error) {
+          console.error('Failed to preload posts:', error);
+        }
+      }
+    }
+
+    private handleInput(event: Event) {
       const query = (event.target as HTMLInputElement).value.trim();
 
       if (query.length < 2) {
@@ -82,31 +98,61 @@ const { placeholder = 'Search articles...', className = '' } = Astro.props;
         return;
       }
 
-      await this.search(query);
+      // Debounce search to avoid excessive searches while typing
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+      }
+      
+      this.debounceTimer = window.setTimeout(() => {
+        this.search(query);
+      }, 150);
     }
 
     private async search(query: string) {
       try {
-        const response = await fetch('/api/search.json');
-        const posts = await response.json();
+        // Use cached posts if available
+        if (SearchBox.postsCache === null) {
+          this.showLoading();
+          const response = await fetch('/api/search.json');
+          SearchBox.postsCache = await response.json();
+        }
+
+        const posts = SearchBox.postsCache;
+        if (!posts) return;
+        
+        const queryLower = query.toLowerCase();
 
         const results = posts.filter(
           (post: any) =>
-            post.title.toLowerCase().includes(query.toLowerCase()) ||
-            post.description.toLowerCase().includes(query.toLowerCase()) ||
+            post.title.toLowerCase().includes(queryLower) ||
+            post.description.toLowerCase().includes(queryLower) ||
             post.tags.some((tag: string) =>
-              tag.toLowerCase().includes(query.toLowerCase())
+              tag.toLowerCase().includes(queryLower)
             ) ||
-            post.category.toLowerCase().includes(query.toLowerCase())
+            post.category.toLowerCase().includes(queryLower)
         );
 
-        this.displayResults(results.slice(0, 5));
+        this.displayResults(results.slice(0, 5), query);
       } catch (error) {
         console.error('Search failed:', error);
+        this.list.innerHTML =
+          '<li class="p-3 text-center text-destructive">Search failed. Please try again.</li>';
+        this.showResults();
       }
     }
 
-    private displayResults(results: any[]) {
+    private showLoading() {
+      this.list.innerHTML =
+        '<li class="p-3 text-center text-muted-foreground">Searching...</li>';
+      this.showResults();
+    }
+
+    private highlightText(text: string, query: string): string {
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<mark class="bg-primary/20 text-foreground rounded px-0.5">$1</mark>');
+    }
+
+    private displayResults(results: any[], query: string = '') {
       if (results.length === 0) {
         this.list.innerHTML =
           '<li class="p-3 text-center text-muted-foreground">No results found</li>';
@@ -119,14 +165,14 @@ const { placeholder = 'Search articles...', className = '' } = Astro.props;
               href="${post.url}"
               class="block rounded-md p-3 hover:bg-muted/50 transition-colors"
             >
-              <h3 class="font-medium text-sm">${post.title}</h3>
-              <p class="text-xs text-muted-foreground mt-1">${post.description}</p>
+              <h3 class="font-medium text-sm">${query ? this.highlightText(post.title, query) : post.title}</h3>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">${query ? this.highlightText(post.description, query) : post.description}</p>
               <div class="flex gap-2 mt-2">
                 ${post.tags
                   .slice(0, 2)
                   .map(
                     (tag: string) => `
-                  <span class="text-xs bg-muted px-2 py-1 rounded">${tag}</span>
+                  <span class="text-xs bg-muted px-2 py-1 rounded">${query ? this.highlightText(tag, query) : tag}</span>
                 `
                   )
                   .join('')}

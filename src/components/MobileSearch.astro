@@ -1,0 +1,258 @@
+---
+/**
+ * Mobile Search Button Component
+ * Opens a fullscreen search modal on mobile devices
+ */
+---
+
+<button
+  type="button"
+  class="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+  aria-label="Open search"
+  data-mobile-search-trigger
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.35-4.35"></path>
+  </svg>
+</button>
+
+<!-- Fullscreen Search Modal -->
+<div
+  class="fixed inset-0 z-[100] hidden bg-background/95 backdrop-blur-sm"
+  data-mobile-search-modal
+>
+  <div class="container flex h-full flex-col pt-4">
+    <!-- Search Header -->
+    <div class="flex items-center gap-4">
+      <div class="relative flex-1">
+        <input
+          type="search"
+          placeholder="Search articles..."
+          class="w-full rounded-lg border bg-background px-4 py-3 pr-12 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+          data-mobile-search-input
+          autofocus
+        />
+        <div class="absolute right-3 top-1/2 -translate-y-1/2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-muted-foreground"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+        data-mobile-search-close
+      >
+        Cancel
+      </button>
+    </div>
+
+    <!-- Search Results -->
+    <div class="mt-4 flex-1 overflow-y-auto" data-mobile-search-results>
+      <div class="space-y-1 pb-8" data-mobile-search-list>
+        <!-- Results will be inserted here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  class MobileSearch {
+    private trigger: HTMLButtonElement;
+    private modal: HTMLElement;
+    private input: HTMLInputElement;
+    private closeBtn: HTMLButtonElement;
+    private list: HTMLElement;
+    private static postsCache: any[] | null = null;
+    private debounceTimer: number | null = null;
+
+    constructor() {
+      this.trigger = document.querySelector(
+        '[data-mobile-search-trigger]'
+      ) as HTMLButtonElement;
+      this.modal = document.querySelector(
+        '[data-mobile-search-modal]'
+      ) as HTMLElement;
+      this.input = document.querySelector(
+        '[data-mobile-search-input]'
+      ) as HTMLInputElement;
+      this.closeBtn = document.querySelector(
+        '[data-mobile-search-close]'
+      ) as HTMLButtonElement;
+      this.list = document.querySelector(
+        '[data-mobile-search-list]'
+      ) as HTMLElement;
+
+      if (this.trigger && this.modal) {
+        this.init();
+      }
+    }
+
+    private init() {
+      this.trigger.addEventListener('click', () => this.open());
+      this.closeBtn.addEventListener('click', () => this.close());
+      this.input.addEventListener('input', (e) => this.handleInput(e));
+      this.input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') this.close();
+      });
+      
+      // Close on backdrop click
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) this.close();
+      });
+    }
+
+    private open() {
+      this.modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => this.input.focus(), 100);
+      this.preloadPosts();
+    }
+
+    private close() {
+      this.modal.classList.add('hidden');
+      document.body.style.overflow = '';
+      this.input.value = '';
+      this.list.innerHTML = '';
+    }
+
+    private async preloadPosts() {
+      if (MobileSearch.postsCache === null) {
+        try {
+          const response = await fetch('/api/search.json');
+          MobileSearch.postsCache = await response.json();
+        } catch (error) {
+          console.error('Failed to preload posts:', error);
+        }
+      }
+    }
+
+    private handleInput(event: Event) {
+      const query = (event.target as HTMLInputElement).value.trim();
+
+      if (query.length < 2) {
+        this.list.innerHTML = this.renderPlaceholder();
+        return;
+      }
+
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+      }
+
+      this.debounceTimer = window.setTimeout(() => {
+        this.search(query);
+      }, 150);
+    }
+
+    private async search(query: string) {
+      try {
+        if (MobileSearch.postsCache === null) {
+          this.list.innerHTML = '<p class="text-center text-muted-foreground py-4">Searching...</p>';
+          const response = await fetch('/api/search.json');
+          MobileSearch.postsCache = await response.json();
+        }
+
+        const posts = MobileSearch.postsCache;
+        if (!posts) return;
+        
+        const queryLower = query.toLowerCase();
+
+        const results = posts.filter(
+          (post: any) =>
+            post.title.toLowerCase().includes(queryLower) ||
+            post.description.toLowerCase().includes(queryLower) ||
+            post.tags.some((tag: string) =>
+              tag.toLowerCase().includes(queryLower)
+            ) ||
+            post.category.toLowerCase().includes(queryLower)
+        );
+
+        this.displayResults(results.slice(0, 10), query);
+      } catch (error) {
+        console.error('Search failed:', error);
+        this.list.innerHTML = '<p class="text-center text-destructive py-4">Search failed. Please try again.</p>';
+      }
+    }
+
+    private highlightText(text: string, query: string): string {
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<mark class="bg-primary/20 text-foreground rounded px-0.5">$1</mark>');
+    }
+
+    private renderPlaceholder(): string {
+      return `
+        <div class="py-8 text-center text-muted-foreground">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-50">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <p>Type to search articles</p>
+        </div>
+      `;
+    }
+
+    private displayResults(results: any[], query: string) {
+      if (results.length === 0) {
+        this.list.innerHTML = `
+          <div class="py-8 text-center text-muted-foreground">
+            <p>No results found for "${query}"</p>
+          </div>
+        `;
+        return;
+      }
+
+      this.list.innerHTML = results
+        .map(
+          (post) => `
+          <a
+            href="${post.url}"
+            class="block rounded-lg border bg-card p-4 transition-colors hover:bg-muted/50"
+          >
+            <div class="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+              <span>${post.category}</span>
+            </div>
+            <h3 class="font-medium mb-1">${this.highlightText(post.title, query)}</h3>
+            <p class="text-sm text-muted-foreground line-clamp-2">${this.highlightText(post.description, query)}</p>
+            <div class="flex gap-2 mt-3">
+              ${post.tags
+                .slice(0, 3)
+                .map(
+                  (tag: string) => `
+                <span class="text-xs bg-secondary px-2 py-1 rounded-full">${this.highlightText(tag, query)}</span>
+              `
+                )
+                .join('')}
+            </div>
+          </a>
+        `
+        )
+        .join('');
+    }
+  }
+
+  // Initialize
+  new MobileSearch();
+</script>

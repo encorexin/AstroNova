@@ -10,8 +10,26 @@ const publishedPosts = posts
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
-const featuredPosts = publishedPosts.slice(0, 3);
-const recentPosts = publishedPosts.slice(3, 6);
+// Prioritize featured posts, then take the latest ones
+const featuredPosts = publishedPosts
+  .filter((post) => post.data.featured)
+  .slice(0, 3);
+
+// If not enough featured posts, fill with latest non-featured posts
+const remainingFeaturedCount = 3 - featuredPosts.length;
+const additionalFeatured = remainingFeaturedCount > 0
+  ? publishedPosts
+      .filter((post) => !post.data.featured)
+      .slice(0, remainingFeaturedCount)
+  : [];
+
+const allFeaturedPosts = [...featuredPosts, ...additionalFeatured];
+
+// Get recent posts excluding featured ones
+const featuredSlugs = new Set(allFeaturedPosts.map((p) => p.slug));
+const recentPosts = publishedPosts
+  .filter((post) => !featuredSlugs.has(post.slug))
+  .slice(0, 6);
 ---
 
 <BaseLayout
@@ -24,7 +42,7 @@ const recentPosts = publishedPosts.slice(3, 6);
       <div>
         <h2 class="mb-6 text-3xl font-bold tracking-tight">Featured Posts</h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featuredPosts.map((post) => <BlogCard post={post} />)}
+          {allFeaturedPosts.map((post) => <BlogCard post={post} />)}
         </div>
       </div>
 

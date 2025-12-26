@@ -2,6 +2,7 @@
 import { siteConfig } from '@/config/site';
 import MobileNav from './MobileNav';
 import SearchBox from './SearchBox.astro';
+import MobileSearch from './MobileSearch.astro';
 import ThemeToggle from './ThemeToggle';
 ---
 
@@ -27,12 +28,16 @@ import ThemeToggle from './ThemeToggle';
       }
     </nav>
 
-    <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-2">
+      <!-- Desktop Search -->
       <div class="hidden md:block">
         <SearchBox placeholder="Search..." className="w-64" />
       </div>
+      <!-- Mobile Search -->
+      <MobileSearch />
       <ThemeToggle client:load />
       <MobileNav client:load />
     </div>
   </div>
 </header>
+

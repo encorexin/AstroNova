@@ -24,7 +24,7 @@ function generateRobotsTxt(options: RobotsTxtOptions = {}): string {
 
   // User-agent rules
   lines.push('User-agent: *');
-  
+
   // Allow rules
   allow.forEach(rule => {
     lines.push(`Allow: ${rule}`);
@@ -60,7 +60,7 @@ export function robotsTxt(options?: RobotsTxtOptions): AstroIntegration {
   return {
     name: 'astro-robots-txt',
     hooks: {
-      'astro:build:done': async ({ dir, routes }) => {
+      'astro:build:done': async ({ dir }) => {
         const siteConfig = await import('../config/site.ts').then(m => m.siteConfig).catch(() => ({
           url: 'https://nova.encorexin.online'
         }));
@@ -75,10 +75,10 @@ export function robotsTxt(options?: RobotsTxtOptions): AstroIntegration {
         };
 
         const robotsTxtContent = generateRobotsTxt(finalOptions);
-        
+
         const distPath = fileURLToPath(dir);
         const robotsTxtPath = join(distPath, 'robots.txt');
-        
+
         // Ensure directory exists
         mkdirSync(distPath, { recursive: true });
         writeFileSync(robotsTxtPath, robotsTxtContent, 'utf8');

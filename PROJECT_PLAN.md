@@ -72,33 +72,38 @@ src/
 
 ### Core Features
 
-- [ ] Blog post list
-- [ ] Article detail pages
-- [ ] Tag system
-- [ ] Category system
-- [ ] Search functionality
-- [ ] Dark/light theme toggle
-- [ ] Responsive navigation
-- [ ] Pagination
+- [x] Blog post list
+- [x] Article detail pages
+- [x] Tag system
+- [x] Category system
+- [x] Search functionality (with caching & highlighting)
+- [x] Dark/light theme toggle
+- [x] Responsive navigation
+- [x] Pagination
 
 ### Advanced Features
 
-- [ ] RSS subscription
-- [ ] Sitemap
-- [ ] SEO optimization
-- [ ] Comment system (integration)
-- [ ] Reading progress indicator
-- [ ] Article sharing features
-- [ ] Code syntax highlighting
-- [ ] Image lightbox effects
+- [x] RSS subscription
+- [x] Sitemap
+- [x] SEO optimization
+- [x] Comment system (Giscus)
+- [x] Reading progress indicator
+- [x] Article sharing features
+- [x] Code syntax highlighting
+- [x] Image lightbox effects
+- [x] Table of Contents (TOC)
+- [x] Related Posts recommendations
+- [x] Author Card
+- [x] Featured posts support
+- [x] Mermaid diagrams support
 
 ### Performance Optimization
 
-- [ ] Image optimization
-- [ ] Font optimization
-- [ ] Code splitting
+- [x] Image optimization (WebP compression)
+- [x] Font optimization
+- [x] Code splitting
 - [ ] Caching strategies
-- [ ] Preloading strategies
+- [x] Preloading strategies
 
 ## Tech Stack
 
