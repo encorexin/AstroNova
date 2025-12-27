@@ -1,8 +1,7 @@
-const CACHE_NAME = 'astro-blog-v1';
+const CACHE_NAME = 'astro-blog-v2';
 const urlsToCache = [
   '/',
   '/offline',
-  '/fonts/inter-var.woff2',
   '/favicon.svg',
   '/manifest.json',
 ];
@@ -12,7 +11,14 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('Opened cache');
-      return cache.addAll(urlsToCache);
+      // Use addAll with individual error handling
+      return Promise.allSettled(
+        urlsToCache.map(url =>
+          cache.add(url).catch(err => {
+            console.warn('Failed to cache:', url, err);
+          })
+        )
+      );
     })
   );
   self.skipWaiting();
