@@ -12,6 +12,8 @@
 
 [Live Demo](https://nova.encorexin.online) · [Quick Start](#-quick-start) · [Features](#-core-features) · [Documentation](#-content-management)
 
+![Lighthouse Score](public/images/lighthouse-score.png)
+
 </div>
 
 ---

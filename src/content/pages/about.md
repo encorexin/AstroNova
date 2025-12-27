@@ -7,6 +7,8 @@ description: "Learn about AstroNova - a modern, high-performance blog template b
 
 Welcome to **AstroNova**, a next-generation technical blog built with cutting-edge web technologies. This platform represents the intersection of performance, design, and developer experience.
 
+![Lighthouse Score](/images/lighthouse-score.png)
+
 ## The Vision
 
 AstroNova was created with a simple goal: to provide developers and content creators with a blog template that doesn't compromise. Fast loading times, beautiful design, and excellent accessibility aren't mutually exclusive—they're the foundation.
