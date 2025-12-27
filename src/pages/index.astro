@@ -17,11 +17,12 @@ const featuredPosts = publishedPosts
 
 // If not enough featured posts, fill with latest non-featured posts
 const remainingFeaturedCount = 3 - featuredPosts.length;
-const additionalFeatured = remainingFeaturedCount > 0
-  ? publishedPosts
-      .filter((post) => !post.data.featured)
-      .slice(0, remainingFeaturedCount)
-  : [];
+const additionalFeatured =
+  remainingFeaturedCount > 0
+    ? publishedPosts
+        .filter((post) => !post.data.featured)
+        .slice(0, remainingFeaturedCount)
+    : [];
 
 const allFeaturedPosts = [...featuredPosts, ...additionalFeatured];
 
@@ -32,9 +33,7 @@ const recentPosts = publishedPosts
   .slice(0, 6);
 ---
 
-<BaseLayout
-  title={`${siteConfig.title} - ${siteConfig.description}`}
->
+<BaseLayout title={`${siteConfig.title} - ${siteConfig.description}`}>
   <HeroSection />
 
   <section class="container py-12">
@@ -42,7 +41,11 @@ const recentPosts = publishedPosts
       <div>
         <h2 class="mb-6 text-3xl font-bold tracking-tight">Featured Posts</h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {allFeaturedPosts.map((post) => <BlogCard post={post} />)}
+          {
+            allFeaturedPosts.map((post, index) => (
+              <BlogCard post={post} priority={index === 0} />
+            ))
+          }
         </div>
       </div>
 

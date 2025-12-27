@@ -90,7 +90,11 @@ const title = currentPage === 1 ? 'Blog' : `Blog - Page ${currentPage}`;
     <div class="grid gap-8 lg:grid-cols-3">
       <div class="lg:col-span-2">
         <div class="grid gap-6">
-          {paginatedPosts.map((post) => <BlogCard post={post} />)}
+          {
+            paginatedPosts.map((post: any, index: number) => (
+              <BlogCard post={post} priority={index === 0} />
+            ))
+          }
         </div>
 
         {

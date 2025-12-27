@@ -6,9 +6,10 @@ import { formatDate } from '@/utils/date';
 export interface Props {
   post: CollectionEntry<'blog'>;
   variant?: 'default' | 'compact';
+  priority?: boolean; // LCP optimization: set to true for above-the-fold images
 }
 
-const { post, variant = 'default' } = Astro.props;
+const { post, variant = 'default', priority = false } = Astro.props;
 const { title, description, heroImage, publishedAt, tags, category } =
   post.data;
 const isPinned = post.data.pinned;
@@ -52,6 +53,9 @@ const isPinned = post.data.pinned;
           class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           width={variant === 'compact' ? 400 : 600}
           height={variant === 'compact' ? 200 : 300}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority ? 'high' : 'auto'}
+          decoding={priority ? 'sync' : 'async'}
           data-no-lightbox="true"
         />
       </a>
