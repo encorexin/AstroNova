@@ -106,36 +106,52 @@ pnpm dev
 
 ```
 AstroNova/
-├── public/              # Static assets
-│   ├── images/          # Image assets
-│   └── favicon.svg      # Site icon
+├── public/                  # Static assets
+│   ├── icons/               # PWA icons
+│   ├── images/              # Image assets
+│   ├── manifest.json        # PWA manifest
+│   ├── sw.js                # Service worker
+│   └── favicon.svg          # Site icon
 ├── src/
-│   ├── components/      # Component library
+│   ├── components/          # Component library
 │   │   ├── AuthorCard.astro
 │   │   ├── BlogCard.astro
+│   │   ├── CodeCopy.astro       # Code copy button
 │   │   ├── Comments.astro
 │   │   ├── Header.astro
+│   │   ├── ImageLightbox.astro
 │   │   ├── Mermaid.astro
 │   │   ├── MobileSearch.astro
+│   │   ├── PostNavigation.astro # Prev/Next navigation
 │   │   ├── RelatedPosts.astro
+│   │   ├── ScrollToTop.astro
 │   │   ├── SearchBox.astro
 │   │   ├── TableOfContents.astro
+│   │   ├── ViewCounter.astro    # View counter
 │   │   └── ...
-│   ├── config/          # Site configuration
-│   │   └── site.ts
-│   ├── content/         # Content collections
-│   │   ├── blog/        # Blog posts
-│   │   └── config.ts    # Content schema
-│   ├── layouts/         # Layout templates
+│   ├── config/              # Site configuration
+│   │   ├── site.ts          # Main site config
+│   │   └── friends.ts       # Friend links config
+│   ├── content/             # Content collections
+│   │   ├── blog/            # Blog posts (Markdown/MDX)
+│   │   ├── pages/           # Static pages
+│   │   └── config.ts        # Content schema
+│   ├── layouts/             # Layout templates
 │   │   ├── BaseLayout.astro
 │   │   └── PostLayout.astro
-│   ├── pages/           # Page routes
-│   ├── styles/          # Global styles
-│   ├── types/           # TypeScript types
-│   └── utils/           # Utility functions
-├── astro.config.mjs     # Astro configuration
-├── tailwind.config.mjs  # Tailwind configuration
-└── tsconfig.json        # TypeScript configuration
+│   ├── pages/               # Page routes
+│   │   ├── blog/            # Blog pages
+│   │   ├── categories/      # Category pages
+│   │   ├── tags/            # Tag pages
+│   │   ├── friends.astro    # Friends page
+│   │   └── index.astro      # Home page
+│   ├── styles/              # Global styles
+│   ├── types/               # TypeScript types
+│   └── utils/               # Utility functions
+├── astro.config.mjs         # Astro configuration
+├── tailwind.config.mjs      # Tailwind configuration
+├── tsconfig.json            # TypeScript configuration
+└── package.json             # Dependencies
 ```
 
 ---
@@ -202,6 +218,33 @@ Supported diagram types:
 - Git graphs (`gitGraph`)
 - Pie charts (`pie`)
 - Gantt charts (`gantt`)
+
+### Adding Friend Links
+
+Edit `src/config/friends.ts` to add friend links:
+
+```typescript
+import type { FriendLink } from '@/config/friends';
+
+export const friendLinks: FriendLink[] = [
+  {
+    name: 'Site Name',
+    url: 'https://example.com',
+    avatar: 'https://example.com/avatar.png', // Optional
+    description: 'Site description',
+    tags: ['Tag1', 'Tag2'], // Optional
+  },
+  // Add more links...
+];
+```
+
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `name` | string | ✅ | Site name |
+| `url` | string | ✅ | Site URL |
+| `avatar` | string | ❌ | Avatar image URL |
+| `description` | string | ✅ | Site description |
+| `tags` | string[] | ❌ | Category tags |
 
 ---
 

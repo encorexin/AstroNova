@@ -101,6 +101,7 @@ src/
 - [x] View counter
 - [x] PWA support (manifest + service worker)
 - [x] Pinned posts
+- [x] Friends page (link exchange)
 
 ### Performance Optimization
 
