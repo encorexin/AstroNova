@@ -1,0 +1,111 @@
+---
+/**
+ * Series Navigation Component
+ * Displays article series with navigation between posts
+ */
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  seriesName: string;
+  currentSlug: string;
+}
+
+const { seriesName, currentSlug } = Astro.props;
+
+// Get all posts in this series
+const allPosts = await getCollection('blog');
+const seriesPosts = allPosts
+  .filter((post) => !post.data.draft && post.data.series?.name === seriesName)
+  .sort((a, b) => (a.data.series?.order || 0) - (b.data.series?.order || 0));
+
+const currentIndex = seriesPosts.findIndex((post) => post.slug === currentSlug);
+const totalPosts = seriesPosts.length;
+---
+
+{
+  seriesPosts.length > 1 && (
+    <div class="my-8 rounded-lg border bg-muted/30 p-6">
+      <div class="mb-4 flex items-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-primary"
+        >
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+        </svg>
+        <h3 class="text-lg font-semibold">{seriesName}</h3>
+        <span class="ml-auto text-sm text-muted-foreground">
+          Part {currentIndex + 1} of {totalPosts}
+        </span>
+      </div>
+
+      {/* Progress bar */}
+      <div class="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+        <div
+          class="h-full rounded-full bg-primary transition-all"
+          style={`width: ${((currentIndex + 1) / totalPosts) * 100}%`}
+        />
+      </div>
+
+      {/* Posts list */}
+      <div class="space-y-2">
+        {seriesPosts.map((post, index) => {
+          const isCurrent = post.slug === currentSlug;
+          const isCompleted = index < currentIndex;
+
+          return (
+            <a
+              href={`/blog/${post.slug}`}
+              class={`flex items-center gap-3 rounded-md p-2 transition-colors ${
+                isCurrent
+                  ? 'bg-primary/10 font-medium text-primary'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+              }`}
+            >
+              <span
+                class={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium ${
+                  isCurrent
+                    ? 'bg-primary text-primary-foreground'
+                    : isCompleted
+                      ? 'bg-green-500/20 text-green-600 dark:text-green-400'
+                      : 'bg-muted text-muted-foreground'
+                }`}
+              >
+                {isCompleted ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  index + 1
+                )}
+              </span>
+              <span class="line-clamp-1 flex-1">{post.data.title}</span>
+              {isCurrent && (
+                <span class="rounded bg-primary/20 px-2 py-0.5 text-xs">
+                  Current
+                </span>
+              )}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  )
+}

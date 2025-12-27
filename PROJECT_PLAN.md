@@ -102,6 +102,9 @@ src/
 - [x] PWA support (manifest + service worker)
 - [x] Pinned posts
 - [x] Friends page (link exchange)
+- [x] Archives page (timeline view)
+- [x] Article series support
+- [x] 14 blog posts (9 + 5 new)
 
 ### Performance Optimization
 

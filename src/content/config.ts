@@ -13,6 +13,10 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
     pinned: z.boolean().default(false), // Pinned post
+    series: z.object({
+      name: z.string(),
+      order: z.number(),
+    }).optional(), // Article series
   }),
 });
 

@@ -13,6 +13,7 @@ import Mermaid from '../components/Mermaid.astro';
 import PostNavigation from '../components/PostNavigation.astro';
 import CodeCopy from '../components/CodeCopy.astro';
 import ViewCounter from '../components/ViewCounter.astro';
+import SeriesNavigation from '../components/SeriesNavigation.astro';
 import { siteConfig } from '@/config/site';
 
 export interface Props {
@@ -29,6 +30,7 @@ const {
   updatedAt,
   tags,
   category,
+  series,
 } = post.data;
 
 const readingTime = Math.ceil(post.body.split(' ').length / 200);
@@ -118,6 +120,16 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200);
                   decoding="sync"
                 />
               </div>
+            )
+          }
+
+          {/* Series Navigation */}
+          {
+            series && (
+              <SeriesNavigation
+                seriesName={series.name}
+                currentSlug={post.slug}
+              />
             )
           }
 

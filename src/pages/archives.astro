@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '@/utils/date';
+
+const posts = await getCollection('blog');
+const publishedPosts = posts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+// Group posts by year and month
+const groupedPosts = publishedPosts.reduce(
+  (acc, post) => {
+    const year = post.data.publishedAt.getFullYear();
+    const month = post.data.publishedAt.getMonth();
+
+    if (!acc[year]) {
+      acc[year] = {};
+    }
+    if (!acc[year][month]) {
+      acc[year][month] = [];
+    }
+    acc[year][month].push(post);
+
+    return acc;
+  },
+  {} as Record<number, Record<number, typeof publishedPosts>>
+);
+
+const years = Object.keys(groupedPosts)
+  .map(Number)
+  .sort((a, b) => b - a);
+
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+// Calculate stats
+const totalPosts = publishedPosts.length;
+const totalYears = years.length;
+---
+
+<BaseLayout
+  title="Archives - AstroNova"
+  description="Browse all blog posts organized by date"
+>
+  <section class="container py-12">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-12 text-center">
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Archives</h1>
+        <p class="mt-4 text-lg text-muted-foreground">
+          {totalPosts} posts across {totalYears} years
+        </p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative">
+        {/* Timeline line */}
+        <div
+          class="absolute bottom-0 left-4 top-0 w-0.5 bg-border md:left-1/2 md:-translate-x-1/2"
+        >
+        </div>
+
+        {
+          years.map((year) => (
+            <div class="mb-12">
+              {/* Year marker */}
+              <div class="relative mb-8 flex items-center">
+                <div class="absolute left-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground md:left-1/2 md:-translate-x-1/2">
+                  {year.toString().slice(-2)}
+                </div>
+                <h2 class="ml-12 text-2xl font-bold md:ml-0 md:w-full md:text-center">
+                  {year}
+                </h2>
+              </div>
+
+              {/* Months */}
+              {groupedPosts[year] &&
+                Object.keys(groupedPosts[year])
+                  .map(Number)
+                  .sort((a, b) => b - a)
+                  .map((month) => (
+                    <div class="mb-8 ml-12 md:ml-0">
+                      <h3 class="mb-4 text-lg font-semibold text-muted-foreground md:text-center">
+                        {monthNames[month]}
+                      </h3>
+
+                      <div class="space-y-3">
+                        {groupedPosts[year]?.[month]?.map((post) => (
+                          <div class="group relative flex items-start gap-4 rounded-lg border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-md">
+                            <time
+                              datetime={post.data.publishedAt.toISOString()}
+                              class="whitespace-nowrap text-sm text-muted-foreground"
+                            >
+                              {formatDate(post.data.publishedAt)}
+                            </time>
+                            <div class="min-w-0 flex-1">
+                              <a
+                                href={`/blog/${post.slug}`}
+                                class="line-clamp-1 font-medium text-foreground transition-colors group-hover:text-primary"
+                              >
+                                {post.data.title}
+                              </a>
+                              <div class="mt-1 flex items-center gap-2">
+                                <span class="text-xs text-muted-foreground">
+                                  {post.data.category}
+                                </span>
+                                {post.data.pinned && (
+                                  <span class="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                    Pinned
+                                  </span>
+                                )}
+                                {post.data.featured && (
+                                  <span class="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+                                    Featured
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="flex-shrink-0 text-muted-foreground transition-colors group-hover:text-primary"
+                            >
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+            </div>
+          ))
+        }
+      </div>
+
+      {/* Empty state */}
+      {
+        totalPosts === 0 && (
+          <div class="py-12 text-center">
+            <p class="text-muted-foreground">No archived posts yet.</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
