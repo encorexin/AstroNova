@@ -99,13 +99,13 @@ Astro follows these priority rules:
 
 ```mermaid
 graph TD
-    A[Request: /blog/hello] --> B{Static Route?}
-    B -->|Yes| C[/blog/hello.astro]
-    B -->|No| D{Named Dynamic?}
-    D -->|Yes| E[/blog/[slug].astro]
-    D -->|No| F{Rest Param?}
-    F -->|Yes| G[/blog/[...slug].astro]
-    F -->|No| H[404]
+    A["Request: /blog/hello"] --> B{"Static Route?"}
+    B -->|Yes| C["hello.astro"]
+    B -->|No| D{"Dynamic Route?"}
+    D -->|Yes| E["slug.astro"]
+    D -->|No| F{"Rest Param?"}
+    F -->|Yes| G["...slug.astro"]
+    F -->|No| H["404"]
 ```
 
 ## API Endpoints
