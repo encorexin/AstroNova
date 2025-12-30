@@ -26,10 +26,13 @@ const _giscusConfig = {
 
 <div class="mt-12 border-t pt-12">
   <h2 class="mb-6 text-2xl font-bold">Comments</h2>
-  <div id="giscus-container"></div>
+  <div id="giscus-container" class="w-full max-w-full overflow-hidden"></div>
 </div>
 
-<script define:vars={{ giscusConfig: _giscusConfig, slug: _slug, title: _title }} is:inline>
+<script
+  define:vars={{ giscusConfig: _giscusConfig, slug: _slug, title: _title }}
+  is:inline
+>
   // Get current theme based on HTML class or system preference
   function getCurrentTheme() {
     // Check localStorage first for explicit theme setting
@@ -37,17 +40,20 @@ const _giscusConfig = {
     if (savedTheme) {
       return savedTheme;
     }
-    
+
     // Check if dark mode is active via HTML class
     if (document.documentElement.classList.contains('dark')) {
       return 'dark';
     }
-    
+
     // Check system preference as fallback
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
       return 'dark';
     }
-    
+
     return 'light';
   }
 
@@ -83,15 +89,20 @@ const _giscusConfig = {
     const iframe = document.querySelector('.giscus-frame');
     if (iframe && iframe.contentWindow) {
       const theme = getCurrentTheme();
-      iframe.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app');
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme } } },
+        'https://giscus.app'
+      );
     }
   }
 
   // Listen for theme changes
   function setupThemeObserver() {
     // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
-    
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', updateGiscusTheme);
+
     // Listen for manual theme toggle via localStorage and class changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -100,12 +111,12 @@ const _giscusConfig = {
         }
       });
     });
-    
+
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class']
+      attributeFilter: ['class'],
     });
-    
+
     // Also listen for storage events (theme changes from other tabs)
     window.addEventListener('storage', (e) => {
       if (e.key === 'theme') {

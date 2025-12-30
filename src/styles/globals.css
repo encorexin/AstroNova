@@ -124,3 +124,15 @@
 :focus-visible {
   @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
 }
+
+/* Giscus comments container */
+#giscus-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+#giscus-container .giscus,
+#giscus-container .giscus-frame {
+  width: 100% !important;
+  max-width: 100% !important;
+}
